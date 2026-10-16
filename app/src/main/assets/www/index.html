@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+</head>
+<body>
+<title>Nejma</title>
+<script>if (window.Android) document.documentElement.classList.add("app");</script>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: un téléphone centré sur un fond neutre ; plein écran sur mobile. Navigation par onglets en bas, écrans empilés. */
+:root {
+  --page: #e7ecea;
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --fg: #16302b;
+  --muted: #5a726c;
+  --line: #d8e2de;
+  --accent: #0f5a3e;
+  --accent-soft: #e1efe7;
+  --on-accent: #ffffff;
+  --gold: #a87a22;
+  --hero: #0b3a29;
+  --hero-fg: #f1d78f;
+  --font-display: "Reem Kufi", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-ar: "Amiri", "Noto Naskh Arabic", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #050c09; --bg: #09150f; --surface: #102019; --fg: #e3ece9; --muted: #9db3ad;
+    --line: #23392f; --accent: #46b383; --accent-soft: #163626; --on-accent: #04190f; --gold: #dcb660;
+    --hero: #0f3324; --hero-fg: #ecd08a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #050c09; --bg: #09150f; --surface: #102019; --fg: #e3ece9; --muted: #9db3ad;
+  --line: #23392f; --accent: #46b383; --accent-soft: #163626; --on-accent: #04190f; --gold: #dcb660;
+  --hero: #0f3324; --hero-fg: #ecd08a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: var(--page); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-inline: 16px; padding-block: 24px;
+  display: flex; justify-content: center; align-items: flex-start;
+}
+.phone {
+  width: 100%; max-width: 390px; height: min(820px, calc(100vh - 48px));
+  background: var(--bg); border: 1px solid var(--line); border-radius: 36px;
+  overflow: hidden; display: flex; flex-direction: column; position: relative;
+  box-shadow: 0 20px 50px rgba(10, 40, 34, .18);
+}
+@media (max-width: 480px) {
+  body { padding: 0; }
+  .phone { max-width: none; height: 100%; border: 0; border-radius: 0; box-shadow: none; }
+}
+html.app body { padding: 0; background: var(--bg); }
+html.app .phone { max-width: none; height: 100%; border: 0; border-radius: 0; box-shadow: none; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; text-decoration: underline; }
+.topbar {
+  display: flex; align-items: center; gap: 10px; padding: 18px 20px 10px;
+  min-height: 60px;
+}
+.topbar h1 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 0; flex: 1; text-wrap: balance; }
+.back {
+  border: 0; background: var(--accent-soft); color: var(--accent);
+  width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; cursor: pointer;
+}
+.back[hidden] { display: none !important; }
+main { flex: 1; overflow-y: auto; padding: 4px 20px 24px; }
+.screen { display: grid; gap: 16px; }
+button { font-family: inherit; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+nav.tabs {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--line); background: var(--surface);
+  padding: 6px 4px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+nav.tabs button {
+  background: none; border: 0; color: var(--muted); cursor: pointer;
+  display: grid; justify-items: center; gap: 2px; font-size: .7rem; padding: 6px 0;
+}
+nav.tabs button svg { width: 22px; height: 22px; }
+nav.tabs button[aria-current="page"] { color: var(--accent); font-weight: 600; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.hero {
+  background: var(--hero); color: var(--hero-fg); border-radius: 20px; padding: 18px;
+  display: grid; gap: 4px; border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+}
+.brand { width: 34px; height: 34px; border-radius: 9px; }
+.brand[hidden] { display: none !important; }
+.splash {
+  position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; align-content: center; gap: 14px;
+  background: radial-gradient(circle at 50% 40%, #12452f, #061a11 70%); color: #ecd08a; cursor: pointer;
+  transition: opacity .5s;
+}
+.splash img { width: 150px; height: 150px; }
+.splash .name { font-family: var(--font-display); font-size: 1.6rem; }
+.splash .ar { font-family: var(--font-ar); font-size: 1.3rem; opacity: .85; }
+.splash.out { opacity: 0; pointer-events: none; }
+.hero .label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.hero .big { font-family: var(--font-display); font-size: 2.2rem; line-height: 1.1; }
+.hero .sub { opacity: .9; font-size: .9rem; }
+.dates { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+.dates strong { color: var(--fg); font-weight: 600; }
+
+.times { display: grid; gap: 2px; }
+.times .row {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+  padding: 10px 4px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums;
+}
+.times .row:last-child { border-bottom: 0; }
+.times .row.next { color: var(--accent); font-weight: 600; }
+.times .ar { font-family: var(--font-ar); color: var(--muted); font-size: 1.05rem; }
+.bell { background: none; border: 0; cursor: pointer; color: var(--muted); padding: 0; font-size: 1rem; }
+.bell[aria-pressed="true"] { color: var(--accent); }
+
+.grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.tile {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 4px; display: grid; justify-items: center; gap: 6px; cursor: pointer;
+  color: var(--fg); font-size: .75rem; text-align: center;
+}
+.tile .ic {
+  width: 38px; height: 38px; border-radius: 12px; background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; font-family: var(--font-ar); font-size: 1.15rem;
+}
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: .8rem; }
+.note {
+  font-size: .78rem; color: var(--muted); border-left: 3px solid var(--gold);
+  padding: 4px 0 4px 10px;
+}
+.badge {
+  display: inline-block; font-size: .65rem; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--gold); border: 1px solid currentColor;
+  border-radius: 999px; padding: 1px 7px; vertical-align: 2px; margin-left: 4px;
+}
+
+.list { display: grid; gap: 8px; }
+.item {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; cursor: pointer; text-align: left; color: var(--fg); width: 100%;
+}
+.item .n {
+  width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: .85rem;
+}
+.item .t { font-weight: 600; }
+.item .s { font-size: .8rem; color: var(--muted); display: block; font-weight: 400; }
+.item .ar { font-family: var(--font-ar); font-size: 1.2rem; color: var(--accent); }
+
+.verse { display: grid; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.verse:last-child { border-bottom: 0; }
+.verse .a { font-family: var(--font-ar); font-size: 1.55rem; line-height: 2; direction: rtl; text-align: right; }
+.verse .tr { font-style: italic; color: var(--accent); font-size: .9rem; }
+.verse .fr { font-size: .9rem; }
+.player {
+  display: flex; align-items: center; gap: 12px; background: var(--accent-soft);
+  border-radius: 14px; padding: 10px 12px;
+}
+.play {
+  width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--accent); color: var(--on-accent); font-size: 1rem;
+}
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg button {
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  border-radius: 999px; padding: 5px 12px; font-size: .8rem; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+.compass { display: grid; justify-items: center; gap: 8px; padding: 8px 0; }
+.compass svg { width: 260px; max-width: 100%; height: auto; }
+.deg { font-family: var(--font-display); font-size: 2rem; }
+
+.step-illu {
+  aspect-ratio: 16 / 10; max-width: 100%; border-radius: 16px; background: var(--accent-soft);
+  display: grid; place-items: center; color: var(--accent); text-align: center; padding: 12px;
+}
+.step-illu .ar { font-family: var(--font-ar); font-size: 2rem; }
+.progress { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; background: var(--accent); transition: width .25s; }
+.nav-steps { display: flex; gap: 10px; }
+.btn {
+  flex: 1; border: 0; border-radius: 12px; padding: 12px; cursor: pointer; font-weight: 600;
+  background: var(--accent); color: var(--on-accent);
+}
+.btn.ghost { background: var(--surface); color: var(--fg); border: 1px solid var(--line); }
+.btn:disabled { opacity: .45; cursor: default; }
+
+table.rakat { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .85rem; }
+table.rakat th, table.rakat td { padding: 7px 4px; border-bottom: 1px solid var(--line); text-align: center; }
+table.rakat th:first-child, table.rakat td:first-child { text-align: left; }
+table.rakat th { color: var(--muted); font-weight: 500; font-size: .75rem; }
+
+.field { display: grid; gap: 4px; }
+.field label { font-size: .8rem; color: var(--muted); }
+.field input {
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font: inherit;
+  background: var(--surface); color: var(--fg); font-variant-numeric: tabular-nums;
+}
+.result { display: grid; gap: 6px; }
+.result .big { font-family: var(--font-display); font-size: 1.8rem; color: var(--accent); }
+.kv { display: flex; justify-content: space-between; gap: 12px; font-size: .85rem; font-variant-numeric: tabular-nums; }
+
+.month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; text-align: center; font-size: .8rem; font-variant-numeric: tabular-nums; }
+.month .h { color: var(--muted); font-size: .7rem; }
+.month .d { padding: 6px 0; border-radius: 8px; display: grid; gap: 0; line-height: 1.2; }
+.month .d small { color: var(--muted); font-size: .62rem; }
+.month .d.today { background: var(--accent); color: var(--on-accent); }
+.month .d.today small { color: var(--on-accent); opacity: .8; }
+.month .d.ev { box-shadow: inset 0 0 0 1.5px var(--gold); }
+
+.tasbih { display: grid; justify-items: center; gap: 14px; padding: 12px 0; }
+.bead {
+  width: 200px; height: 200px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--accent); color: var(--on-accent); display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 3rem; font-variant-numeric: tabular-nums;
+}
+.bead:active { transform: scale(.97); }
+.phrase { font-family: var(--font-ar); font-size: 1.8rem; color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="phone" role="application" aria-label="Nejma">
+  <div class="topbar">
+    <button class="back" id="backBtn" hidden aria-label="Retour">←</button>
+    <img class="brand" id="brand" src="logo.png" alt="Logo">
+    <h1 id="title">Accueil</h1>
+  </div>
+  <main id="main"></main>
+  <div class="splash" id="splash" aria-hidden="true"><img src="logo.png" alt=""><span class="name">Nejma</span><span class="ar">بسم الله الرحمن الرحيم</span></div>
+  <nav class="tabs" aria-label="Navigation principale">
+    <button data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+    <button data-tab="surahs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v14"/></svg>Sourates</button>
+    <button data-tab="qibla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 5-4 1 2-5z"/></svg>Qibla</button>
+    <button data-tab="calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendrier</button>
+    <button data-tab="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>Plus</button>
+  </nav>
+</div>
+
+<script>
+// ---------- Mode appli et sauvegarde ----------
+const IS_APP = !!window.Android;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("nejma." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("nejma." + k, JSON.stringify(v)); } catch (e) {} }
+};
+const dayKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+let CITY = store.get("city", { name: "Paris", lat: 48.8566, lng: 2.3522 });
+const KAABA = { lat: 21.4225, lng: 39.8262 };
+const PRAYERS = [
+  { k: "fajr", fr: "Fajr", ar: "الفجر" },
+  { k: "sunrise", fr: "Lever du soleil", ar: "الشروق" },
+  { k: "dhuhr", fr: "Dhuhr", ar: "الظهر" },
+  { k: "asr", fr: "Asr", ar: "العصر" },
+  { k: "maghrib", fr: "Maghrib", ar: "المغرب" },
+  { k: "isha", fr: "Isha", ar: "العشاء" }
+];
+
+const SURAHS = [
+  { n: 1, fr: "Al-Fatiha", sub: "L'Ouverture · 7 versets", ar: "الفاتحة", v: [
+    ["بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "Bismi llâhi r-rahmâni r-rahîm", "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux."],
+    ["الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "Al-hamdu li-llâhi rabbi l-'âlamîn", "Louange à Allah, Seigneur de l'univers."],
+    ["الرَّحْمَٰنِ الرَّحِيمِ", "Ar-rahmâni r-rahîm", "Le Tout Miséricordieux, le Très Miséricordieux,"],
+    ["مَالِكِ يَوْمِ الدِّينِ", "Mâliki yawmi d-dîn", "Maître du Jour de la rétribution."],
+    ["إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", "Iyyâka na'budu wa iyyâka nasta'în", "C'est Toi seul que nous adorons, et c'est Toi seul dont nous implorons le secours."],
+    ["اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", "Ihdinâ s-sirâta l-mustaqîm", "Guide-nous dans le droit chemin,"],
+    ["صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", "Sirâta lladhîna an'amta 'alayhim, ghayri l-maghdûbi 'alayhim wa la d-dâllîn", "le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ta colère, ni des égarés."]
+  ]},
+  { n: 103, fr: "Al-'Asr", sub: "Le Temps · 3 versets", ar: "العصر", v: [
+    ["وَالْعَصْرِ", "Wal-'asr", "Par le Temps !"],
+    ["إِنَّ الْإِنسَانَ لَفِي خُسْرٍ", "Inna l-insâna lafî khusr", "L'homme est certes en perdition,"],
+    ["إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ", "Illa lladhîna âmanû wa 'amilû s-sâlihâti wa tawâsaw bil-haqqi wa tawâsaw bis-sabr", "sauf ceux qui croient et accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement l'endurance."]
+  ]},
+  { n: 106, fr: "Quraysh", sub: "Les Quraysh · 4 versets", ar: "قريش", v: [
+    ["لِإِيلَافِ قُرَيْشٍ", "Li-îlâfi Quraysh", "À cause du pacte des Quraysh,"],
+    ["إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ", "Îlâfihim rihlata sh-shitâ'i wa s-sayf", "de leur pacte concernant les voyages d'hiver et d'été."],
+    ["فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ", "Falya'budû rabba hâdha l-bayt", "Qu'ils adorent donc le Seigneur de cette Maison,"],
+    ["الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ", "Alladhî at'amahum min jû'in wa âmanahum min khawf", "qui les a nourris contre la faim et rassurés de la crainte."]
+  ]},
+  { n: 108, fr: "Al-Kawthar", sub: "L'Abondance · 3 versets", ar: "الكوثر", v: [
+    ["إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ", "Innâ a'taynâka l-kawthar", "Nous t'avons certes accordé l'Abondance."],
+    ["فَصَلِّ لِرَبِّكَ وَانْحَرْ", "Fasalli li-rabbika wanhar", "Accomplis la prière pour ton Seigneur et sacrifie."],
+    ["إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ", "Inna shâni'aka huwa l-abtar", "Celui qui te hait sera certes sans postérité."]
+  ]},
+  { n: 109, fr: "Al-Kafirun", sub: "Les Infidèles · 6 versets", ar: "الكافرون", v: [
+    ["قُلْ يَا أَيُّهَا الْكَافِرُونَ", "Qul yâ ayyuha l-kâfirûn", "Dis : « Ô vous les infidèles !"],
+    ["لَا أَعْبُدُ مَا تَعْبُدُونَ", "Lâ a'budu mâ ta'budûn", "Je n'adore pas ce que vous adorez."],
+    ["وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ", "Wa lâ antum 'âbidûna mâ a'bud", "Et vous n'êtes pas adorateurs de ce que j'adore."],
+    ["وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ", "Wa lâ ana 'âbidun mâ 'abadtum", "Je ne suis pas adorateur de ce que vous adorez."],
+    ["وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ", "Wa lâ antum 'âbidûna mâ a'bud", "Et vous n'êtes pas adorateurs de ce que j'adore."],
+    ["لَكُمْ دِينُكُمْ وَلِيَ دِينِ", "Lakum dînukum wa liya dîn", "À vous votre religion, et à moi ma religion. »"]
+  ]},
+  { n: 110, fr: "An-Nasr", sub: "Le Secours · 3 versets", ar: "النصر", v: [
+    ["إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ", "Idhâ jâ'a nasru llâhi wal-fath", "Lorsque vient le secours d'Allah ainsi que la victoire,"],
+    ["وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا", "Wa ra'ayta n-nâsa yadkhulûna fî dîni llâhi afwâjâ", "et que tu vois les gens entrer en foule dans la religion d'Allah,"],
+    ["فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا", "Fasabbih bi-hamdi rabbika wastaghfirh, innahû kâna tawwâbâ", "alors célèbre la gloire de ton Seigneur par la louange et implore Son pardon. Car c'est Lui le grand Accueillant au repentir."]
+  ]},
+  { n: 112, fr: "Al-Ikhlas", sub: "Le Monothéisme pur · 4 versets", ar: "الإخلاص", v: [
+    ["قُلْ هُوَ اللَّهُ أَحَدٌ", "Qul huwa llâhu ahad", "Dis : « Il est Allah, Unique."],
+    ["اللَّهُ الصَّمَدُ", "Allâhu s-samad", "Allah, Le Seul à être imploré pour ce que nous désirons."],
+    ["لَمْ يَلِدْ وَلَمْ يُولَدْ", "Lam yalid wa lam yûlad", "Il n'a jamais engendré, n'a pas été engendré non plus."],
+    ["وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ", "Wa lam yakun lahû kufuwan ahad", "Et nul n'est égal à Lui. »"]
+  ]},
+  { n: 113, fr: "Al-Falaq", sub: "L'Aube naissante · 5 versets", ar: "الفلق", v: [
+    ["قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ", "Qul a'ûdhu bi-rabbi l-falaq", "Dis : « Je cherche protection auprès du Seigneur de l'aube naissante,"],
+    ["مِن شَرِّ مَا خَلَقَ", "Min sharri mâ khalaq", "contre le mal des êtres qu'Il a créés,"],
+    ["وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ", "Wa min sharri ghâsiqin idhâ waqab", "contre le mal de l'obscurité quand elle s'approfondit,"],
+    ["وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ", "Wa min sharri n-naffâthâti fi l-'uqad", "contre le mal de celles qui soufflent sur les nœuds,"],
+    ["وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ", "Wa min sharri hâsidin idhâ hasad", "et contre le mal de l'envieux quand il envie. »"]
+  ]},
+  { n: 114, fr: "An-Nas", sub: "Les Hommes · 6 versets", ar: "الناس", v: [
+    ["قُلْ أَعُوذُ بِرَبِّ النَّاسِ", "Qul a'ûdhu bi-rabbi n-nâs", "Dis : « Je cherche protection auprès du Seigneur des hommes,"],
+    ["مَلِكِ النَّاسِ", "Maliki n-nâs", "le Souverain des hommes,"],
+    ["إِلَٰهِ النَّاسِ", "Ilâhi n-nâs", "Dieu des hommes,"],
+    ["مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ", "Min sharri l-waswâsi l-khannâs", "contre le mal du mauvais conseiller, furtif,"],
+    ["الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ", "Alladhî yuwaswisu fî sudûri n-nâs", "qui souffle le mal dans les poitrines des hommes,"],
+    ["مِنَ الْجِنَّةِ وَالنَّاسِ", "Mina l-jinnati wa n-nâs", "qu'il (le conseiller) soit un djinn ou un être humain. »"]
+  ]}
+];
+
+const WUDU = [
+  ["Intention et Bismillah", "Formuler dans son cœur l'intention de faire les ablutions, puis dire « Bismillah ».", "بسم الله"],
+  ["Les mains", "Se laver les mains jusqu'aux poignets, trois fois, en passant entre les doigts.", "×3"],
+  ["La bouche", "Se rincer la bouche, trois fois.", "×3"],
+  ["Le nez", "Aspirer l'eau par le nez puis la rejeter avec la main gauche, trois fois.", "×3"],
+  ["Le visage", "Se laver le visage du front au menton et d'une oreille à l'autre, trois fois.", "×3"],
+  ["Les bras", "Laver le bras droit puis le gauche jusqu'aux coudes inclus, trois fois chacun.", "×3"],
+  ["La tête", "Passer les mains mouillées sur la tête, de l'avant vers l'arrière puis retour, une fois.", "×1"],
+  ["Les oreilles", "Essuyer l'intérieur et l'arrière des oreilles avec les doigts mouillés, une fois.", "×1"],
+  ["Les pieds", "Laver le pied droit puis le gauche jusqu'aux chevilles incluses, trois fois chacun.", "×3"],
+  ["Invocation finale", "Prononcer l'attestation de foi : « Ash-hadu an lâ ilâha illa llâh, wa ash-hadu anna Muhammadan 'abduhû wa rasûluh ».", "الشهادة"]
+];
+
+const SALAT = [
+  ["Takbir d'ouverture", "Debout face à la qibla, lever les mains et dire « Allâhu akbar ».", "اللّٰه أكبر"],
+  ["Station debout (qiyam)", "Réciter Al-Fatiha, puis une autre sourate dans les deux premières rak'at.", "الفاتحة"],
+  ["Inclinaison (ruku')", "S'incliner, mains sur les genoux, et dire trois fois « Subhâna rabbiya l-'adhîm ».", "سبحان ربي العظيم"],
+  ["Redressement", "Se relever en disant « Sami'a llâhu liman hamidah », puis « Rabbanâ wa laka l-hamd ».", "سمع الله لمن حمده"],
+  ["Prosternation (sujud)", "Se prosterner front, nez, mains, genoux et orteils au sol, et dire trois fois « Subhâna rabbiya l-a'lâ ».", "سبحان ربي الأعلى"],
+  ["Assise entre les prosternations", "S'asseoir brièvement et dire « Rabbi ghfir lî ».", "رب اغفر لي"],
+  ["Seconde prosternation", "Se prosterner à nouveau comme la première fois. Une rak'a est terminée.", "سجود"],
+  ["Tashahhud", "Après la 2e rak'a et à la dernière, s'asseoir et réciter le tashahhud.", "التشهد"],
+  ["Salutation finale (taslim)", "Tourner la tête à droite puis à gauche en disant « As-salâmu 'alaykum wa rahmatu llâh ».", "السلام عليكم"]
+];
+
+const EVENTS = [
+  { m: 1, d: 1, fr: "Nouvel an de l'Hégire" },
+  { m: 1, d: 10, fr: "Achoura" },
+  { m: 3, d: 12, fr: "Mawlid" },
+  { m: 9, d: 1, fr: "Début du Ramadan" },
+  { m: 9, d: 27, fr: "Nuit du Destin (estimée)" },
+  { m: 10, d: 1, fr: "Aïd al-Fitr" },
+  { m: 12, d: 9, fr: "Jour de Arafat" },
+  { m: 12, d: 10, fr: "Aïd al-Adha" }
+];
+
+const MORE = [
+  { id: "ablutions", fr: "Ablutions", s: "Guide pas à pas", ar: "و", v: "V1" },
+  { id: "salat", fr: "Apprendre la prière", s: "Positions et récitations", ar: "ص", v: "V1" },
+  { id: "zakat", fr: "Calculateur de zakat", s: "Avoirs, nisab, zakat al-fitr", ar: "ز", v: "V1" },
+  { id: "tasbih", fr: "Douas et tasbih", s: "Compteur de dhikr", ar: "ذ", v: "V2" },
+  { id: "quran", fr: "Coran complet", s: "114 sourates, récitateurs", ar: "ق", v: "V2" },
+  { id: "ramadan", fr: "Mode Ramadan", s: "Suhur, iftar, jours à rattraper", ar: "ر", v: "V2" },
+  { id: "suivi", fr: "Suivi des prières", s: "Journal et statistiques", ar: "م", v: "V2" },
+  { id: "widget", fr: "Widgets", s: "Prochaine prière sur l'écran d'accueil", ar: "□", v: "V2" },
+  { id: "prophetes", fr: "Histoire des prophètes", s: "D'Adam à Muhammad ﷺ", ar: "ن", v: "V2" },
+  { id: "funeraire", fr: "Guide funéraire", s: "Que faire au décès d'un proche", ar: "ج", v: "V3" },
+  { id: "memo", fr: "Mémorisation du Coran", s: "Répétition espacée", ar: "ح", v: "V3" },
+];
+
+// ---------- Calculs ----------
+const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI;
+const fixA = a => ((a % 360) + 360) % 360, fixH = h => ((h % 24) + 24) % 24;
+function sunPos(jd) {
+  const D = jd - 2451545.0;
+  const g = fixA(357.529 + 0.98560028 * D), q = fixA(280.459 + 0.98564736 * D);
+  const L = fixA(q + 1.915 * Math.sin(rad(g)) + 0.020 * Math.sin(rad(2 * g)));
+  const e = 23.439 - 0.00000036 * D;
+  const RA = deg(Math.atan2(Math.cos(rad(e)) * Math.sin(rad(L)), Math.cos(rad(L)))) / 15;
+  return { decl: deg(Math.asin(Math.sin(rad(e)) * Math.sin(rad(L)))), eqt: q / 15 - fixH(RA) };
+}
+// Méthode UOIF : Fajr et Isha à 12°, Asr école shafi'ite (ombre = 1)
+function prayerTimes(date, lat, lng) {
+  const jd = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000 + 2440587.5 - lng / 360;
+  const tz = -date.getTimezoneOffset() / 60;
+  const noon = t => fixH(12 - sunPos(jd + t).eqt);
+  const angleTime = (a, t, ccw) => {
+    const { decl } = sunPos(jd + t);
+    const T = deg(Math.acos((-Math.sin(rad(a)) - Math.sin(rad(decl)) * Math.sin(rad(lat))) / (Math.cos(rad(decl)) * Math.cos(rad(lat))))) / 15;
+    return noon(t) + (ccw ? -T : T);
+  };
+  const asr = t => {
+    const { decl } = sunPos(jd + t);
+    const a = -deg(Math.atan(1 / (1 + Math.tan(rad(Math.abs(lat - decl))))));
+    return angleTime(a, t);
+  };
+  const raw = {
+    fajr: angleTime(12, 5 / 24, true), sunrise: angleTime(0.833, 6 / 24, true),
+    dhuhr: noon(12 / 24), asr: asr(13 / 24), maghrib: angleTime(0.833, 18 / 24), isha: angleTime(12, 18 / 24)
+  };
+  const out = {};
+  for (const k in raw) {
+    const h = raw[k] + tz - lng / 15 + (k === "dhuhr" ? 1 / 60 : 0);
+    const d = new Date(date); d.setHours(0, 0, 0, 0); d.setMinutes(Math.round(h * 60));
+    out[k] = d;
+  }
+  return out;
+}
+function qiblaBearing(lat, lng) {
+  const p1 = rad(lat), p2 = rad(KAABA.lat), dl = rad(KAABA.lng - lng);
+  return fixA(deg(Math.atan2(Math.sin(dl), Math.cos(p1) * Math.tan(p2) - Math.sin(p1) * Math.cos(dl))));
+}
+const hijriParts = d => {
+  const o = {};
+  new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn", { day: "numeric", month: "numeric", year: "numeric" })
+    .formatToParts(d).forEach(p => { if (p.type !== "literal") o[p.type] = parseInt(p.value, 10); });
+  return o;
+};
+const hijriLong = d => new Intl.DateTimeFormat("fr-FR-u-ca-islamic-umalqura-nu-latn", { day: "numeric", month: "long", year: "numeric" }).format(d);
+const hijriMonthName = d => new Intl.DateTimeFormat("fr-FR-u-ca-islamic-umalqura", { month: "long" }).format(d);
+const hm = d => d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+const longDate = d => d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+const euro = n => n.toLocaleString("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 2 });
+
+function nextPrayer(now) {
+  let t = prayerTimes(now, CITY.lat, CITY.lng);
+  for (const p of PRAYERS) if (p.k !== "sunrise" && t[p.k] > now) return { p, at: t[p.k] };
+  const tm = new Date(now); tm.setDate(tm.getDate() + 1);
+  return { p: PRAYERS[0], at: prayerTimes(tm, CITY.lat, CITY.lng).fajr };
+}
+function upcomingEvents(from, count) {
+  const res = [];
+  const d = new Date(from); d.setHours(12, 0, 0, 0);
+  for (let i = 0; i < 400 && res.length < count; i++) {
+    const h = hijriParts(d);
+    const ev = EVENTS.find(e => e.m === h.month && e.d === h.day);
+    if (ev) res.push({ ...ev, date: new Date(d) });
+    d.setDate(d.getDate() + 1);
+  }
+  return res;
+}
+
+// ---------- Navigation ----------
+const main = document.getElementById("main"), titleEl = document.getElementById("title"), backBtn = document.getElementById("backBtn");
+let stack = [], tab = "home", timer = null;
+const notif = store.get("notif", { fajr: true, dhuhr: true, asr: true, maghrib: true, isha: true });
+// Transmet la position et les notifications choisies au téléphone, qui programme les rappels.
+function syncNative() {
+  if (!IS_APP) return;
+  try { Android.setSettings(JSON.stringify({ lat: CITY.lat, lng: CITY.lng, city: CITY.name, notif })); } catch (e) {}
+}
+let locating = false;
+function locate() {
+  if (!navigator.geolocation || locating) return;
+  locating = true;
+  navigator.geolocation.getCurrentPosition(pos => {
+    locating = false;
+    const lat = pos.coords.latitude, lng = pos.coords.longitude;
+    let name = "";
+    try { if (IS_APP) name = Android.cityName(lat, lng) || ""; } catch (e) {}
+    CITY = { name: name || "Ma position", lat, lng };
+    store.set("city", CITY); syncNative(); render();
+  }, () => { locating = false; }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 3600000 });
+}
+const state = { surah: 0, wudu: 0, salat: 0, tasbih: 0, phrase: 0 };
+
+function go(screen, push = true) { if (push) stack.push(screen); render(); }
+function back() { stack.pop(); render(); }
+// Bouton retour du téléphone : revient d'abord en arrière dans l'appli.
+window.appBack = () => {
+  if (stack.length > 1) { back(); return true; }
+  if (tab !== "home") { setTab("home"); return true; }
+  return false;
+};
+function setTab(t) { tab = t; stack = [t]; render(); }
+backBtn.addEventListener("click", back);
+document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+
+const screens = {};
+let onOrient = null;
+function render() {
+  clearInterval(timer);
+  if (onOrient) { window.removeEventListener("deviceorientationabsolute", onOrient); onOrient = null; }
+  const id = stack[stack.length - 1];
+  const s = screens[id];
+  titleEl.textContent = s.title;
+  backBtn.hidden = stack.length < 2;
+  document.getElementById("brand").hidden = stack.length >= 2;
+  main.innerHTML = "";
+  const el = document.createElement("div"); el.className = "screen";
+  main.appendChild(el); main.scrollTop = 0;
+  s.draw(el);
+  document.querySelectorAll("nav.tabs button").forEach(b => { if (b.dataset.tab === tab) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+}
+const h = (html) => { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content; };
+
+// ---------- Écrans ----------
+screens.home = { title: "Assalamu alaykum", draw(el) {
+  const now = new Date();
+  const t = prayerTimes(now, CITY.lat, CITY.lng);
+  const np = nextPrayer(now);
+  el.append(h(`
+    <div class="dates"><span><strong>${longDate(now)}</strong></span><span>${hijriLong(now)}</span></div>
+    <div class="hero">
+      <span class="label">Prochaine prière · ${CITY.name}</span>
+      <span class="big">${np.p.fr} ${hm(np.at)}</span>
+      <span class="sub" id="countdown"></span>
+    </div>
+    <div class="card"><div class="times" id="times"></div></div>
+    <h2>Raccourcis</h2>
+    <div class="grid4">
+      <button class="tile" data-go="ablutions"><span class="ic">و</span>Ablutions</button>
+      <button class="tile" data-go="salat"><span class="ic">ص</span>Prière</button>
+      <button class="tile" data-go="zakat"><span class="ic">ز</span>Zakat</button>
+      <button class="tile" data-go="tasbih"><span class="ic">ذ</span>Tasbih</button>
+    </div>
+    ${IS_APP && !Android.canExactAlarms() ? `<div class="card small">Pour que les rappels sonnent à l'heure exacte, autorisez les alarmes pour Nejma. <button class="linkbtn" id="exact">Autoriser</button></div>` : ""}
+    <p class="note">Horaires calculés pour ${CITY.name} (méthode UOIF, 12°). ${IS_APP ? `<button class="linkbtn" id="loc">Mettre à jour ma position</button>` : "Dans l'appli, la ville vient du GPS."}</p>
+  `));
+  el.querySelector("#loc")?.addEventListener("click", locate);
+  el.querySelector("#exact")?.addEventListener("click", () => Android.openExactAlarmSettings());
+  const tb = el.querySelector("#times");
+  PRAYERS.forEach(p => {
+    const isNext = p.k === np.p.k && t[p.k].toDateString() === np.at.toDateString();
+    const row = h(`<div class="row${isNext ? " next" : ""}"><span>${p.fr} <span class="ar">${p.ar}</span></span><span>${hm(t[p.k])}</span>
+      ${p.k === "sunrise" ? "<span></span>" : `<button class="bell" aria-label="Notification ${p.fr}" aria-pressed="${notif[p.k]}">${notif[p.k] ? "🔔" : "🔕"}</button>`}</div>`);
+    tb.append(row);
+  });
+  tb.querySelectorAll(".bell").forEach((b, i) => b.addEventListener("click", () => {
+    const k = PRAYERS.filter(p => p.k !== "sunrise")[i].k; notif[k] = !notif[k];
+    b.setAttribute("aria-pressed", notif[k]); b.textContent = notif[k] ? "🔔" : "🔕";
+    store.set("notif", notif); syncNative();
+  }));
+  el.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => go(b.dataset.go)));
+  const cd = el.querySelector("#countdown");
+  const tick = () => {
+    const ms = np.at - new Date(); if (ms <= 0) return render();
+    const hh = Math.floor(ms / 3600000), mm = Math.floor(ms / 60000) % 60, ss = Math.floor(ms / 1000) % 60;
+    cd.textContent = `dans ${hh} h ${String(mm).padStart(2, "0")} min ${String(ss).padStart(2, "0")} s`;
+  };
+  tick(); timer = setInterval(tick, 1000);
+}};
+
+screens.surahs = { title: "Sourates pour prier", draw(el) {
+  el.append(h(`<p class="muted small">Les courtes sourates pour la prière, avec texte arabe, translittération, traduction et audio.</p><div class="list" id="l"></div>
+    <p class="note">9 sourates disponibles pour l'instant. Le Juz 'Amma complet (sourates 78 à 114) arrivera dans une prochaine version.</p>`));
+  const l = el.querySelector("#l");
+  SURAHS.forEach((s, i) => {
+    const b = h(`<button class="item"><span class="n">${s.n}</span><span><span class="t">${s.fr}</span><span class="s">${s.sub}</span></span><span class="ar">${s.ar}</span></button>`);
+    b.firstElementChild.addEventListener("click", () => { state.surah = i; go("surah"); });
+    l.append(b);
+  });
+}};
+
+screens.surah = { get title() { return SURAHS[state.surah].fr; }, draw(el) {
+  const s = SURAHS[state.surah];
+  const mode = state.mode || "all";
+  el.append(h(`
+    <div class="player"><button class="play" aria-label="Lire l'audio" disabled style="opacity:.5">▶</button>
+      <div><strong>Récitation</strong><div class="small muted">Audio bientôt disponible</div></div></div>
+    <div class="seg" role="group" aria-label="Affichage">
+      <button data-m="all" aria-pressed="${mode === "all"}">Tout</button>
+      <button data-m="ar" aria-pressed="${mode === "ar"}">Arabe seul</button>
+      <button data-m="learn" aria-pressed="${mode === "learn"}">Mode apprentissage</button>
+    </div>
+    <div class="card" id="vv"></div>`));
+  const vv = el.querySelector("#vv");
+  s.v.forEach((v, i) => vv.append(h(`<div class="verse"><div class="a">${v[0]} ﴿${(i + 1).toLocaleString("ar-EG")}﴾</div>
+    ${mode !== "ar" ? `<div class="tr">${v[1]}</div><div class="fr">${mode === "learn" ? "<span class='muted small'>Répéter ce verset 3 fois avant de passer au suivant</span>" : v[2]}</div>` : ""}</div>`)));
+  el.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { state.mode = b.dataset.m; render(); }));
+}};
+
+screens.qibla = { title: "Direction de la qibla", draw(el) {
+  const b = qiblaBearing(CITY.lat, CITY.lng);
+  const ticks = Array.from({ length: 36 }, (_, i) => {
+    const a = rad(i * 10), r1 = i % 9 === 0 ? 100 : 106;
+    return `<line x1="${130 + r1 * Math.sin(a)}" y1="${130 - r1 * Math.cos(a)}" x2="${130 + 114 * Math.sin(a)}" y2="${130 - 114 * Math.cos(a)}" stroke="var(--muted)" stroke-width="${i % 9 === 0 ? 2 : 1}"/>`;
+  }).join("");
+  el.append(h(`
+    <div class="compass">
+      <svg viewBox="0 0 260 260" role="img" aria-label="Boussole indiquant la qibla à ${Math.round(b)} degrés">
+        <g id="dial">
+        <circle cx="130" cy="130" r="120" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+        ${ticks}
+        <text x="130" y="36" text-anchor="middle" fill="var(--fg)" font-size="15" font-weight="600">N</text>
+        <text x="226" y="135" text-anchor="middle" fill="var(--muted)" font-size="13">E</text>
+        <text x="130" y="234" text-anchor="middle" fill="var(--muted)" font-size="13">S</text>
+        <text x="34" y="135" text-anchor="middle" fill="var(--muted)" font-size="13">O</text>
+        <g transform="rotate(${b} 130 130)">
+          <line x1="130" y1="130" x2="130" y2="44" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+          <rect x="120" y="30" width="20" height="20" rx="3" fill="var(--fg)"/>
+          <rect x="120" y="36" width="20" height="3" fill="var(--gold)"/>
+        </g>
+        </g>
+        <path d="M130 4 l-7 12 h14 z" fill="var(--gold)"/>
+        <circle cx="130" cy="130" r="7" fill="var(--accent)"/>
+      </svg>
+      <span class="deg">${Math.round(b)}°</span>
+      <span class="muted small">depuis ${CITY.name}, sens des aiguilles d'une montre depuis le nord</span>
+    </div>
+    <div class="card small" id="qhint">Tiens le téléphone à plat et tourne-toi jusqu'à ce que la Kaaba arrive sous le repère doré. Le téléphone vibre quand tu es face à la qibla.</div>
+    <p class="note" id="qnote">Si la boussole ne bouge pas, ton téléphone n'a pas de capteur d'orientation : le nord est alors en haut. Éloigne-toi des objets métalliques pour plus de précision.</p>`));
+  const dial = el.querySelector("#dial"), hint = el.querySelector("#qhint");
+  let aligned = false;
+  onOrient = e => {
+    if (e.alpha == null) return;
+    const heading = fixA(360 - e.alpha);
+    dial.setAttribute("transform", `rotate(${-heading} 130 130)`);
+    const diff = Math.abs(((b - heading + 540) % 360) - 180);
+    if (diff < 5 && !aligned) { aligned = true; try { navigator.vibrate?.(150); } catch (x) {} hint.textContent = "Tu es face à la qibla."; }
+    if (diff > 8 && aligned) { aligned = false; hint.textContent = "Tourne-toi jusqu'à ce que la Kaaba arrive sous le repère doré."; }
+  };
+  window.addEventListener("deviceorientationabsolute", onOrient);
+}};
+
+screens.calendar = { title: "Calendrier hégirien", draw(el) {
+  const now = new Date(), hp = hijriParts(now);
+  const start = new Date(now); start.setHours(12, 0, 0, 0); start.setDate(start.getDate() - (hp.day - 1));
+  const days = [];
+  for (let d = new Date(start); hijriParts(d).month === hp.month; d.setDate(d.getDate() + 1)) days.push(new Date(d));
+  const offset = (days[0].getDay() + 6) % 7;
+  const evs = upcomingEvents(now, 5);
+  el.append(h(`
+    <div class="hero"><span class="label">Aujourd'hui</span><span class="big">${hijriLong(now)}</span><span class="sub">${longDate(now)}</span></div>
+    <div class="card"><h2 style="margin-bottom:10px">${hijriMonthName(now)} ${hp.year}</h2><div class="month" id="m"></div></div>
+    <h2>Prochains événements</h2><div class="list" id="ev"></div>
+    <p class="note">Dates calculées selon le calendrier Umm al-Qura. Elles peuvent varier d'un jour selon l'observation de la lune.</p>`));
+  const m = el.querySelector("#m");
+  ["L", "M", "M", "J", "V", "S", "D"].forEach(x => m.append(h(`<span class="h">${x}</span>`)));
+  for (let i = 0; i < offset; i++) m.append(h(`<span></span>`));
+  days.forEach((d, i) => {
+    const isEv = EVENTS.some(e => e.m === hp.month && e.d === i + 1);
+    m.append(h(`<span class="d${d.toDateString() === now.toDateString() ? " today" : ""}${isEv ? " ev" : ""}">${i + 1}<small>${d.getDate()}/${d.getMonth() + 1}</small></span>`));
+  });
+  const ev = el.querySelector("#ev");
+  evs.forEach(e => {
+    const days = Math.round((e.date - new Date(now.toDateString())) / 86400000);
+    ev.append(h(`<div class="item" style="cursor:default"><span class="n">${e.d}</span><span><span class="t">${e.fr}</span><span class="s">${e.date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span></span><span class="small muted">J-${days}</span></div>`));
+  });
+}};
+
+screens.more = { title: "Toutes les rubriques", draw(el) {
+  el.append(h(`<div class="list" id="l"></div>`));
+  const l = el.querySelector("#l");
+  MORE.forEach(x => {
+    const b = h(`<button class="item"><span class="n" style="font-family:var(--font-ar);font-size:1.1rem">${x.ar}</span><span><span class="t">${x.fr}<span class="badge">${x.v}</span></span><span class="s">${x.s}</span></span><span class="muted">›</span></button>`);
+    b.firstElementChild.addEventListener("click", () => { if (x.soon) { state.soon = x; go("soon"); } else go(x.id); });
+    l.append(b);
+  });
+}};
+
+screens.soon = { get title() { return state.soon.fr; }, draw(el) {
+  el.append(h(`<div class="step-illu"><div><div class="ar">${state.soon.ar}</div><div>${state.soon.s}</div></div></div>
+    <div class="card">Écran prévu pour la version <strong>${state.soon.v}</strong>. Il n'est pas encore maquetté.</div>`));
+}};
+
+function stepper(el, list, key, done, illu = true) {
+  const i = state[key], s = list[i];
+  el.append(h(`
+    <div class="progress" aria-hidden="true"><div style="width:${((i + 1) / list.length) * 100}%"></div></div>
+    <span class="small muted">Étape ${i + 1} sur ${list.length}</span>
+    ${illu ? `<div class="step-illu"><div><div class="ar">${s[2]}</div><div class="small">Illustration à venir</div></div></div>` : ""}
+    <h2>${s[0]}${illu ? "" : ` <span class="badge" style="font-family:var(--font-ar);font-size:.8rem;text-transform:none">${s[2]}</span>`}</h2><p style="margin:0">${s[1]}</p>
+    <div class="nav-steps"><button class="btn ghost" id="prev" ${i === 0 ? "disabled" : ""}>Précédent</button>
+    <button class="btn" id="next">${i === list.length - 1 ? done : "Suivant"}</button></div>`));
+  el.querySelector("#prev").addEventListener("click", () => { state[key]--; render(); });
+  el.querySelector("#next").addEventListener("click", () => { if (i < list.length - 1) state[key]++; else { state[key] = 0; back(); return; } render(); });
+}
+screens.ablutions = { title: "Les ablutions", draw(el) { stepper(el, WUDU, "wudu", "Terminé", false); } };
+screens.salat = { title: "Apprendre la prière", draw(el) {
+  stepper(el, SALAT, "salat", "Terminé", false);
+  el.append(h(`<div class="card"><h2 style="margin-bottom:6px">Nombre de rak'at</h2>
+    <table class="rakat"><tr><th>Prière</th><th>Obligatoires</th><th>Sunna avant</th><th>Sunna après</th></tr>
+    <tr><td>Fajr</td><td>2</td><td>2</td><td>–</td></tr>
+    <tr><td>Dhuhr</td><td>4</td><td>4</td><td>2</td></tr>
+    <tr><td>Asr</td><td>4</td><td>–</td><td>–</td></tr>
+    <tr><td>Maghrib</td><td>3</td><td>–</td><td>2</td></tr>
+    <tr><td>Isha</td><td>4</td><td>–</td><td>2</td></tr></table></div>
+    <p class="note">Les sunna indiquées sont les plus courantes ; le contenu est à faire valider.</p>`));
+}};
+
+screens.zakat = { title: "Calculateur de zakat", draw(el) {
+  el.append(h(`
+    <div class="card" style="display:grid;gap:10px">
+      <div class="field"><label for="z-ep">Épargne et comptes bancaires (€)</label><input id="z-ep" type="number" inputmode="decimal" value="12000"></div>
+      <div class="field"><label for="z-or">Or et argent détenus (valeur en €)</label><input id="z-or" type="number" inputmode="decimal" value="1500"></div>
+      <div class="field"><label for="z-ac">Actions et placements (€)</label><input id="z-ac" type="number" inputmode="decimal" value="3000"></div>
+      <div class="field"><label for="z-cr">Créances qu'on vous doit (€)</label><input id="z-cr" type="number" inputmode="decimal" value="0"></div>
+      <div class="field"><label for="z-de">Dettes à payer (€)</label><input id="z-de" type="number" inputmode="decimal" value="2000"></div>
+      <div class="field"><label for="z-pg">Prix du gramme d'or (€)</label><input id="z-pg" type="number" inputmode="decimal" value="100"></div>
+    </div>
+    <div class="card result" id="res"></div>
+    <div class="card" style="display:grid;gap:10px">
+      <h2>Zakat al-fitr</h2>
+      <div class="field"><label for="z-pp">Personnes dans le foyer</label><input id="z-pp" type="number" min="1" value="4"></div>
+      <div class="field"><label for="z-pu">Montant par personne (€)</label><input id="z-pu" type="number" inputmode="decimal" value="9"></div>
+      <div class="kv"><span>Total à verser avant la prière de l'Aïd</span><strong id="fitr"></strong></div>
+    </div>
+    <p class="note">Valeurs d'exemple. Le prix de l'or et le montant de la zakat al-fitr sont à mettre à jour chaque année.</p>`));
+  const v = id => parseFloat(el.querySelector("#" + id).value) || 0;
+  const calc = () => {
+    const net = v("z-ep") + v("z-or") + v("z-ac") + v("z-cr") - v("z-de");
+    const nisab = 85 * v("z-pg");
+    const due = net >= nisab;
+    el.querySelector("#res").innerHTML = `
+      <span class="small muted">Zakat à payer (2,5 %)</span>
+      <span class="big">${due ? euro(net * 0.025) : euro(0)}</span>
+      <div class="kv"><span>Patrimoine net</span><span>${euro(net)}</span></div>
+      <div class="kv"><span>Nisab (85 g d'or)</span><span>${euro(nisab)}</span></div>
+      <span class="small ${due ? "" : "muted"}">${due ? "Votre patrimoine dépasse le nisab : la zakat est due s'il est détenu depuis un an lunaire." : "Votre patrimoine est sous le nisab : pas de zakat cette année."}</span>`;
+    el.querySelector("#fitr").textContent = euro(v("z-pp") * v("z-pu"));
+  };
+  el.querySelectorAll("input").forEach(i => i.addEventListener("input", calc));
+  calc();
+}};
+
+const PHRASES = [["سبحان الله", "SubhânAllâh"], ["الحمد لله", "Al-hamdu lillâh"], ["الله أكبر", "Allâhu akbar"]];
+screens.tasbih = { title: "Douas et tasbih", draw(el) {
+  const p = PHRASES[state.phrase];
+  el.append(h(`
+    <div class="tasbih">
+      <span class="phrase">${p[0]}</span><span class="muted">${p[1]} · objectif 33</span>
+      <button class="bead" id="bead" aria-label="Compter">${state.tasbih}</button>
+      <div class="seg" role="group">${PHRASES.map((x, i) => `<button data-p="${i}" aria-pressed="${i === state.phrase}">${x[1]}</button>`).join("")}</div>
+      <button class="btn ghost" id="reset" style="flex:none;padding:8px 18px">Remettre à zéro</button>
+    </div>
+    <p class="note">Après 33, le compteur passe automatiquement à la formule suivante. Le téléphone vibre à chaque appui.</p>
+    <h2>Douas du quotidien</h2>
+    <div class="card">${DOUAS.map(d => `<div class="verse"><span class="small muted">${d[0]}</span><div class="a" style="font-size:1.35rem">${d[1]}</div><div class="tr">${d[2]}</div></div>`).join("")}</div>`));
+  el.querySelector("#bead").addEventListener("click", () => {
+    state.tasbih++;
+    try { navigator.vibrate?.(state.tasbih >= 33 ? 300 : 25); } catch (x) {}
+    if (state.tasbih >= 33) { state.tasbih = 0; state.phrase = (state.phrase + 1) % 3; }
+    render();
+  });
+  el.querySelector("#reset").addEventListener("click", () => { state.tasbih = 0; render(); });
+  el.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => { state.phrase = +b.dataset.p; state.tasbih = 0; render(); }));
+}};
+
+// ---------- V2 : Coran complet ----------
+const QURAN = "Al-Fatiha 7|Al-Baqara 286|Al-Imran 200|An-Nisa 176|Al-Ma'ida 120|Al-An'am 165|Al-A'raf 206|Al-Anfal 75|At-Tawba 129|Yunus 109|Hud 123|Yusuf 111|Ar-Ra'd 43|Ibrahim 52|Al-Hijr 99|An-Nahl 128|Al-Isra 111|Al-Kahf 110|Maryam 98|Ta-Ha 135|Al-Anbiya 112|Al-Hajj 78|Al-Mu'minun 118|An-Nur 64|Al-Furqan 77|Ash-Shu'ara 227|An-Naml 93|Al-Qasas 88|Al-Ankabut 69|Ar-Rum 60|Luqman 34|As-Sajda 30|Al-Ahzab 73|Saba 54|Fatir 45|Ya-Sin 83|As-Saffat 182|Sad 88|Az-Zumar 75|Ghafir 85|Fussilat 54|Ash-Shura 53|Az-Zukhruf 89|Ad-Dukhan 59|Al-Jathiya 37|Al-Ahqaf 35|Muhammad 38|Al-Fath 29|Al-Hujurat 18|Qaf 45|Adh-Dhariyat 60|At-Tur 49|An-Najm 62|Al-Qamar 55|Ar-Rahman 78|Al-Waqi'a 96|Al-Hadid 29|Al-Mujadila 22|Al-Hashr 24|Al-Mumtahana 13|As-Saff 14|Al-Jumu'a 11|Al-Munafiqun 11|At-Taghabun 18|At-Talaq 12|At-Tahrim 12|Al-Mulk 30|Al-Qalam 52|Al-Haqqa 52|Al-Ma'arij 44|Nuh 28|Al-Jinn 28|Al-Muzzammil 20|Al-Muddaththir 56|Al-Qiyama 40|Al-Insan 31|Al-Mursalat 50|An-Naba 40|An-Nazi'at 46|Abasa 42|At-Takwir 29|Al-Infitar 19|Al-Mutaffifin 36|Al-Inshiqaq 25|Al-Buruj 22|At-Tariq 17|Al-A'la 19|Al-Ghashiya 26|Al-Fajr 30|Al-Balad 20|Ash-Shams 15|Al-Layl 21|Ad-Duha 11|Ash-Sharh 8|At-Tin 8|Al-Alaq 19|Al-Qadr 5|Al-Bayyina 8|Az-Zalzala 8|Al-Adiyat 11|Al-Qari'a 11|At-Takathur 8|Al-Asr 3|Al-Humaza 9|Al-Fil 5|Quraysh 4|Al-Ma'un 7|Al-Kawthar 3|Al-Kafirun 6|An-Nasr 3|Al-Masad 5|Al-Ikhlas 4|Al-Falaq 5|An-Nas 6"
+  .split("|").map((x, i) => { const k = x.lastIndexOf(" "); return { n: i + 1, fr: x.slice(0, k), v: +x.slice(k + 1) }; });
+
+screens.quran = { title: "Coran", draw(el) {
+  el.append(h(`
+    <button class="hero" id="resume" style="border:0;text-align:left;cursor:pointer">
+      <span class="label">Reprendre la lecture</span><span class="big" style="font-size:1.6rem">Al-Kahf · verset 46</span>
+      <span class="sub">Objectif Ramadan : 12 juz sur 30 lus</span>
+    </button>
+    <div class="field"><label for="q-search">Rechercher une sourate</label><input id="q-search" type="search" placeholder="Nom ou numéro"></div>
+    <div class="seg" role="group" aria-label="Récitateur"><button aria-pressed="true">Mishary Alafasy</button><button aria-pressed="false">Abdul Basit</button><button aria-pressed="false">Al-Husary</button></div>
+    <div class="list" id="ql"></div>
+    <p class="note">Ouvrir une sourate déjà présente dans l'onglet Sourates affiche son texte. Les autres textes seront ajoutés depuis une source sous licence libre (Tanzil).</p>`));
+  const ql = el.querySelector("#ql"), q = el.querySelector("#q-search");
+  const draw = () => {
+    const f = q.value.trim().toLowerCase();
+    ql.innerHTML = "";
+    QURAN.filter(s => !f || s.fr.toLowerCase().includes(f) || String(s.n) === f).forEach(s => {
+      const ok = SURAHS.findIndex(x => x.n === s.n);
+      const b = h(`<button class="item"><span class="n">${s.n}</span><span><span class="t">${s.fr}</span><span class="s">${s.v} versets${ok < 0 ? " · texte à ajouter" : ""}</span></span><span class="muted small">⬇︎</span></button>`);
+      b.firstElementChild.addEventListener("click", () => { if (ok >= 0) { state.surah = ok; go("surah"); } });
+      ql.append(b);
+    });
+  };
+  q.addEventListener("input", draw); draw();
+}};
+
+// ---------- V2 : Douas (ajoutées sous le tasbih) ----------
+const DOUAS = [
+  ["En se levant", "الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور", "Al-hamdu lillâhi lladhî ahyânâ ba'da mâ amâtanâ wa ilayhi n-nushûr"],
+  ["Avant de manger", "بسم الله", "Bismillâh"],
+  ["Après avoir mangé", "الحمد لله الذي أطعمني هذا ورزقنيه", "Al-hamdu lillâhi lladhî at'amanî hâdhâ wa razaqanîh"],
+  ["En sortant de chez soi", "بسم الله توكلت على الله ولا حول ولا قوة إلا بالله", "Bismillâh, tawakkaltu 'ala llâh, wa lâ hawla wa lâ quwwata illâ billâh"],
+  ["Avant de dormir", "باسمك اللهم أموت وأحيا", "Bismika llâhumma amûtu wa ahyâ"]
+];
+
+// ---------- V2 : Ramadan ----------
+const ramadanSaved = store.get("ramadan", null);
+const ramadanState = ramadanSaved
+  ? { fasted: new Set(ramadanSaved.fasted), missed: new Set(ramadanSaved.missed) }
+  : IS_APP ? { fasted: new Set(), missed: new Set() } : { fasted: new Set([1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12]), missed: new Set([7]) };
+const saveRamadan = () => store.set("ramadan", { fasted: [...ramadanState.fasted], missed: [...ramadanState.missed] });
+screens.ramadan = { title: "Mode Ramadan", draw(el) {
+  const now = new Date(), t = prayerTimes(now, CITY.lat, CITY.lng);
+  const next = upcomingEvents(now, 8).find(e => e.m === 9 && e.d === 1);
+  const toIftar = t.maghrib - now;
+  el.append(h(`
+    <div class="hero">
+      <span class="label">Aperçu pendant le Ramadan · ${CITY.name}</span>
+      <span class="big">Iftar ${hm(t.maghrib)}</span>
+      <span class="sub">Suhur jusqu'à ${hm(t.fajr)}${toIftar > 0 ? ` · rupture dans ${Math.floor(toIftar / 3600000)} h ${String(Math.floor(toIftar / 60000) % 60).padStart(2, "0")}` : ""}</span>
+    </div>
+    ${next ? `<div class="card small">Prochain Ramadan : <strong>${next.date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</strong> (estimation).</div>` : ""}
+    <div class="card" style="display:grid;gap:10px">
+      <h2>Mes jours de jeûne</h2>
+      <div class="month" id="rd"></div>
+      <div class="kv"><span>Jours jeûnés</span><strong id="r-f"></strong></div>
+      <div class="kv"><span>Jours à rattraper</span><strong id="r-m"></strong></div>
+      <span class="small muted">Touchez un jour : jeûné, puis à rattraper, puis vide.</span>
+    </div>
+    <div class="card"><div class="verse" style="border:0;padding:0">
+      <h2>Invocation de rupture du jeûne</h2>
+      <div class="a">ذهب الظمأ وابتلت العروق وثبت الأجر إن شاء الله</div>
+      <div class="tr">Dhahaba dh-dhama'u wabtallati l-'urûqu wa thabata l-ajru in shâ' Allâh</div>
+      <div class="fr">La soif est partie, les veines sont humidifiées et la récompense est confirmée, si Allah le veut.</div>
+    </div></div>`));
+  const rd = el.querySelector("#rd");
+  const paint = () => {
+    rd.innerHTML = "";
+    for (let d = 1; d <= 30; d++) {
+      const f = ramadanState.fasted.has(d), m = ramadanState.missed.has(d);
+      const b = h(`<button class="d" style="border:0;cursor:pointer;font:inherit;background:${f ? "var(--accent)" : m ? "transparent" : "var(--accent-soft)"};color:${f ? "var(--on-accent)" : "var(--fg)"};${m ? "box-shadow:inset 0 0 0 1.5px var(--gold)" : ""}" aria-label="Jour ${d}">${d}</button>`);
+      b.firstElementChild.addEventListener("click", () => {
+        if (f) { ramadanState.fasted.delete(d); ramadanState.missed.add(d); }
+        else if (m) ramadanState.missed.delete(d);
+        else ramadanState.fasted.add(d);
+        saveRamadan(); paint();
+      });
+      rd.append(b);
+    }
+    el.querySelector("#r-f").textContent = ramadanState.fasted.size;
+    el.querySelector("#r-m").textContent = ramadanState.missed.size;
+  };
+  paint();
+}};
+
+// ---------- V2 : Suivi des prières ----------
+const FIVE = PRAYERS.filter(p => p.k !== "sunrise");
+// Journal : { "2026-10-16": ["fajr", "dhuhr"], ... } gardé sur le téléphone.
+const suiviLog = store.get("suivi", IS_APP ? {} : (() => {
+  const o = {}, ex = [[1,1,1,1,1],[1,1,1,0,1],[1,1,1,1,1],[0,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]];
+  ex.forEach((row, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); o[dayKey(d)] = FIVE.filter((p, j) => row[j]).map(p => p.k); });
+  o[dayKey(new Date())] = ["fajr", "dhuhr"];
+  return o;
+})());
+screens.suivi = { title: "Suivi des prières", draw(el) {
+  const days = [];
+  for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); days.push(d); }
+  const todayK = dayKey(days[6]);
+  el.append(h(`
+    <div class="card" style="display:grid;gap:4px">
+      <h2>Aujourd'hui</h2>
+      <div class="times" id="today"></div>
+    </div>
+    <div class="grid4" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="card" style="text-align:center;padding:12px 6px"><div class="deg" style="font-size:1.6rem;color:var(--accent)" id="s-pct"></div><div class="small muted">sur 7 jours</div></div>
+      <div class="card" style="text-align:center;padding:12px 6px"><div class="deg" style="font-size:1.6rem;color:var(--accent)" id="s-streak"></div><div class="small muted">jours complets d'affilée</div></div>
+      <div class="card" style="text-align:center;padding:12px 6px"><div class="deg" style="font-size:1.6rem;color:var(--gold)" id="s-miss"></div><div class="small muted">prières à rattraper (6 derniers jours)</div></div>
+    </div>
+    <div class="card" style="overflow-x:auto">
+      <h2 style="margin-bottom:8px">7 derniers jours</h2>
+      <table class="rakat" id="wk"></table>
+    </div>
+    <p class="note">${IS_APP ? "" : "Données d'exemple. "}Le suivi reste uniquement sur le téléphone.</p>`));
+  const tb = el.querySelector("#today");
+  const got = (k, p) => (suiviLog[k] || []).includes(p);
+  const paint = () => {
+    tb.innerHTML = "";
+    FIVE.forEach(p => {
+      const on = got(todayK, p.k);
+      const r = h(`<div class="row"><span>${p.fr} <span class="ar">${p.ar}</span></span><span></span><button class="bell" aria-pressed="${on}" aria-label="${p.fr} accomplie" style="font-size:1.2rem">${on ? "✅" : "⬜"}</button></div>`);
+      r.querySelector("button").addEventListener("click", () => {
+        const l = new Set(suiviLog[todayK] || []); on ? l.delete(p.k) : l.add(p.k);
+        suiviLog[todayK] = [...l]; store.set("suivi", suiviLog); paint();
+      });
+      tb.append(r);
+    });
+    const done = days.reduce((a, d) => a + FIVE.filter(p => got(dayKey(d), p.k)).length, 0);
+    el.querySelector("#s-pct").textContent = Math.round(done / 35 * 100) + " %";
+    let streak = 0;
+    const d = new Date(); if (FIVE.every(p => got(dayKey(d), p.k))) streak++;
+    for (d.setDate(d.getDate() - 1); FIVE.every(p => got(dayKey(d), p.k)); d.setDate(d.getDate() - 1)) streak++;
+    el.querySelector("#s-streak").textContent = streak;
+    el.querySelector("#s-miss").textContent = days.slice(0, 6).reduce((a, x) => a + FIVE.filter(p => !got(dayKey(x), p.k)).length, 0);
+    el.querySelector("#wk").innerHTML = `<tr><th></th>${FIVE.map(p => `<th>${p.fr}</th>`).join("")}</tr>` +
+      days.map((x, i) => `<tr><td>${i === 6 ? "<strong>Auj.</strong>" : x.toLocaleDateString("fr-FR", { weekday: "short" })}</td>${FIVE.map(p => `<td>${got(dayKey(x), p.k) ? "●" : i === 6 ? "·" : "<span style='color:var(--gold)'>○</span>"}</td>`).join("")}</tr>`).join("");
+  };
+  paint();
+}};
+
+// ---------- V2 : Widget ----------
+screens.widget = { title: "Widgets", draw(el) {
+  const now = new Date(), t = prayerTimes(now, CITY.lat, CITY.lng), np = nextPrayer(now);
+  el.append(h(`
+    <p class="muted small" style="margin:0">Aperçu des widgets sur l'écran d'accueil du téléphone.</p>
+    <div style="border-radius:22px;padding:18px;display:grid;gap:14px;background:linear-gradient(160deg,#2b5876,#4e4376)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:var(--hero);color:var(--hero-fg);border-radius:18px;padding:14px;display:grid;gap:2px;aspect-ratio:1">
+          <span class="small" style="opacity:.8">Prochaine prière</span>
+          <span style="font-family:var(--font-display);font-size:1.5rem">${np.p.fr}</span>
+          <span style="font-family:var(--font-display);font-size:1.9rem">${hm(np.at)}</span>
+        </div>
+        <div style="background:var(--surface);color:var(--fg);border-radius:18px;padding:14px;display:grid;align-content:center;gap:4px;aspect-ratio:1;text-align:center">
+          <span style="font-family:var(--font-ar);font-size:1.4rem;color:var(--accent)">${hijriParts(now).day}</span>
+          <span class="small">${hijriLong(now)}</span>
+        </div>
+      </div>
+      <div style="background:var(--surface);color:var(--fg);border-radius:18px;padding:12px 14px;display:grid;grid-template-columns:repeat(5,1fr);text-align:center;font-variant-numeric:tabular-nums">
+        ${FIVE.map(p => `<div style="display:grid;gap:2px;${p.k === np.p.k ? "color:var(--accent);font-weight:600" : ""}"><span class="small">${p.fr}</span><span>${hm(t[p.k])}</span></div>`).join("")}
+      </div>
+    </div>
+    <p class="note">${IS_APP ? "Pour l'ajouter : appui long sur l'écran d'accueil du téléphone, puis Widgets, puis Nejma." : "Trois formats : prochaine prière (petit), date hégirienne (petit) et horaires du jour (large)."}</p>`));
+}};
+
+// ---------- V2 : Histoire des prophètes ----------
+const PROPHETS = [
+  ["Adam", "آدم", "Le premier homme et le premier prophète.", "Al-Baqara (2)"],
+  ["Idris (Énoch)", "إدريس", "Cité pour sa sincérité et sa patience.", "Maryam (19)"],
+  ["Nouh (Noé)", "نوح", "L'arche et le déluge.", "Nuh (71)"],
+  ["Houd", "هود", "Envoyé au peuple de 'Ad.", "Hud (11)"],
+  ["Salih", "صالح", "Envoyé au peuple de Thamoud, la chamelle.", "Ash-Shu'ara (26)"],
+  ["Ibrahim (Abraham)", "إبراهيم", "L'ami d'Allah, bâtisseur de la Kaaba.", "Ibrahim (14)"],
+  ["Lout (Loth)", "لوط", "Envoyé au peuple de Sodome.", "Hud (11)"],
+  ["Ismaïl (Ismaël)", "إسماعيل", "Fils d'Ibrahim, le sacrifice.", "As-Saffat (37)"],
+  ["Ishaq (Isaac)", "إسحاق", "Fils d'Ibrahim et de Sara.", "As-Saffat (37)"],
+  ["Yaqoub (Jacob)", "يعقوب", "Père des douze tribus.", "Yusuf (12)"],
+  ["Youssouf (Joseph)", "يوسف", "Le puits, l'Égypte et le pardon.", "Yusuf (12)"],
+  ["Ayyoub (Job)", "أيوب", "Modèle de patience dans l'épreuve.", "Al-Anbiya (21)"],
+  ["Chouaïb", "شعيب", "Envoyé au peuple de Madyan.", "Hud (11)"],
+  ["Moussa (Moïse)", "موسى", "Pharaon, la mer ouverte, la Torah.", "Ta-Ha (20)"],
+  ["Haroun (Aaron)", "هارون", "Frère et soutien de Moussa.", "Ta-Ha (20)"],
+  ["Dhoul-Kifl", "ذو الكفل", "Cité parmi les patients.", "Al-Anbiya (21)"],
+  ["Daoud (David)", "داود", "Goliath, les Psaumes (Zabour).", "Sad (38)"],
+  ["Soulayman (Salomon)", "سليمان", "Roi sage qui comprenait les animaux.", "An-Naml (27)"],
+  ["Ilyas (Élie)", "إلياس", "Envoyé contre l'adoration de Baal.", "As-Saffat (37)"],
+  ["Al-Yasa' (Élisée)", "اليسع", "Successeur d'Ilyas.", "Sad (38)"],
+  ["Younous (Jonas)", "يونس", "Avalé par le poisson, son invocation.", "Yunus (10)"],
+  ["Zakariya (Zacharie)", "زكريا", "Gardien de Maryam, père de Yahya.", "Maryam (19)"],
+  ["Yahya (Jean-Baptiste)", "يحيى", "Fils de Zakariya.", "Maryam (19)"],
+  ["'Issa (Jésus)", "عيسى", "Fils de Maryam, l'Évangile (Injil).", "Maryam (19)"],
+  ["Muhammad ﷺ", "محمد", "Le sceau des prophètes.", "Muhammad (47)"]
+];
+screens.prophetes = { title: "Les prophètes", draw(el) {
+  el.append(h(`<p class="muted small" style="margin:0">Les 25 prophètes cités dans le Coran, dans l'ordre chronologique.</p><div class="list" id="pl"></div>`));
+  const pl = el.querySelector("#pl");
+  PROPHETS.forEach((p, i) => {
+    const b = h(`<button class="item"><span class="n">${i + 1}</span><span><span class="t">${p[0]}</span><span class="s">${p[2]}</span></span><span class="ar">${p[1]}</span></button>`);
+    b.firstElementChild.addEventListener("click", () => { state.prophet = i; go("prophete"); });
+    pl.append(b);
+  });
+}};
+screens.prophete = { get title() { return PROPHETS[state.prophet][0]; }, draw(el) {
+  const p = PROPHETS[state.prophet];
+  el.append(h(`
+    <div class="hero"><span class="label">Prophète n° ${state.prophet + 1}</span><span class="big" style="font-family:var(--font-ar)">${p[1]}</span><span class="sub">${p[2]}</span></div>
+    <div class="list">
+      ${["Sa vie", "Son message et son peuple", "Ce que le Coran en dit", "Les leçons à retenir"].map((c, i) => `<div class="item" style="cursor:default"><span class="n">${i + 1}</span><span><span class="t">${c}</span><span class="s">Récit à rédiger · lecture 3 min · audio</span></span><span class="muted">›</span></div>`).join("")}
+    </div>
+    <div class="card small">Cité notamment dans la sourate <strong>${p[3]}</strong>.</div>
+    <p class="note">Les récits seront rédigés à partir du Coran et de sources reconnues, puis relus avant publication.</p>`));
+}};
+
+// ---------- V3 : Guide funéraire ----------
+const FUNERAL = [
+  ["Dans les premières heures", [
+    "Fermer les yeux du défunt et dire « Innâ lillâhi wa innâ ilayhi râji'ûn »",
+    "Faire constater le décès par un médecin (certificat de décès)",
+    "Prévenir l'imam ou la mosquée",
+    "Contacter des pompes funèbres musulmanes"]],
+  ["Démarches en France", [
+    "Déclarer le décès à la mairie sous 24 h (souvent fait par les pompes funèbres)",
+    "Inhumer entre 24 h et 6 jours ouvrables après le décès (dérogation possible)",
+    "Demander une place en carré musulman au cimetière",
+    "En cas de rapatriement : autorisation de transport et consulat du pays"]],
+  ["Toilette mortuaire (ghusl)", [
+    "Réalisée par des personnes du même sexe que le défunt",
+    "Lavage du corps selon les étapes du ghusl",
+    "Envelopper le corps dans le linceul (kafan)"]],
+  ["Prière funéraire (janaza)", [
+    "Prière debout, sans inclinaison ni prosternation, avec 4 takbir",
+    "Al-Fatiha, salutation sur le Prophète ﷺ, invocations pour le défunt",
+    "Prévenir la communauté pour qu'elle y assiste"]],
+  ["Inhumation et après", [
+    "Coucher le défunt sur le côté droit, face à la qibla",
+    "Recevoir les condoléances (trois jours)",
+    "Régler les dettes du défunt avant la répartition de l'héritage",
+    "Délai de viduité ('idda) pour la veuve : 4 mois et 10 jours"]]
+];
+const funDone = new Set(store.get("funeraire", []));
+screens.funeraire = { title: "Guide funéraire", draw(el) {
+  const total = FUNERAL.reduce((a, s) => a + s[1].length, 0);
+  el.append(h(`
+    <div class="card small">Qu'Allah vous accorde la patience. Ce guide vous accompagne étape par étape. Cochez ce qui est fait.</div>
+    <div class="progress" aria-hidden="true"><div style="width:${funDone.size / total * 100}%"></div></div>
+    <span class="small muted">${funDone.size} sur ${total} étapes faites</span>
+    <div id="fl" style="display:grid;gap:14px"></div>
+    <p class="note">Contenu à faire valider par un imam et à vérifier pour les règles françaises en vigueur.</p>`));
+  const fl = el.querySelector("#fl");
+  FUNERAL.forEach((sec, si) => {
+    const c = h(`<div class="card" style="display:grid;gap:4px"><h2>${sec[0]}</h2><div class="times"></div></div>`);
+    const tl = c.querySelector(".times");
+    sec[1].forEach((txt, ti) => {
+      const id = si + "-" + ti, on = funDone.has(id);
+      const r = h(`<div class="row" style="grid-template-columns:auto 1fr;cursor:pointer"><span style="font-size:1.1rem">${on ? "✅" : "⬜"}</span><span class="small" style="${on ? "color:var(--muted);text-decoration:line-through" : ""}">${txt}</span></div>`);
+      r.firstElementChild.addEventListener("click", () => { on ? funDone.delete(id) : funDone.add(id); store.set("funeraire", [...funDone]); render(); });
+      tl.append(r);
+    });
+    fl.append(c);
+  });
+}};
+
+// ---------- V3 : Mémorisation par répétition espacée ----------
+const INTERVALS = [1, 3, 7, 14, 30];
+// Programme : [{ n, lvl, next: "AAAA-MM-JJ" }] ; une sourate est à réviser quand sa date est passée.
+const memo = store.get("memo", IS_APP ? [] : [
+  { n: 1, lvl: 3, off: 0 }, { n: 112, lvl: 4, off: 0 }, { n: 113, lvl: 2, off: 0 },
+  { n: 114, lvl: 2, off: 2 }, { n: 108, lvl: 1, off: 5 }, { n: 103, lvl: 4, off: 12 }
+].map(m => { const d = new Date(); d.setDate(d.getDate() + m.off); return { n: m.n, lvl: m.lvl, next: dayKey(d) }; }));
+const daysUntil = k => { const [y, m, d] = k.split("-").map(Number); return Math.round((new Date(y, m - 1, d) - new Date(new Date().toDateString())) / 86400000); };
+screens.memo = { title: "Mémorisation", draw(el) {
+  const due = memo.filter(m => daysUntil(m.next) <= 0);
+  const cur = due[0];
+  const name = n => QURAN[n - 1].fr;
+  const free = SURAHS.filter(s => !memo.some(m => m.n === s.n));
+  el.append(h(`
+    <div class="hero"><span class="label">Révisions du jour</span><span class="big">${due.length} sourate${due.length > 1 ? "s" : ""}</span><span class="sub">${memo.length} sourate${memo.length > 1 ? "s" : ""} dans mon programme</span></div>
+    <div id="rev"></div>
+    <h2>Mon programme</h2>
+    <div class="list" id="ml"></div>
+    ${free.length ? `<div class="card" style="display:grid;gap:8px"><h2>Ajouter une sourate apprise</h2><div class="seg" id="add">${free.map(s => `<button data-n="${s.n}">${s.fr}</button>`).join("")}</div></div>` : ""}
+    <p class="note">Plus une sourate est bien retenue, plus la prochaine révision est espacée (1, 3, 7, 14 puis 30 jours).</p>`));
+  const save = () => store.set("memo", memo);
+  if (cur) {
+    const s = SURAHS.find(x => x.n === cur.n);
+    const rev = h(`<div class="card" style="display:grid;gap:10px">
+      <span class="small muted">Récitez la suite de mémoire, puis vérifiez</span>
+      <h2>${name(cur.n)}</h2>
+      <div class="verse" style="border:0;padding:0"><div class="a">${s ? s.v[0][0] : ""} …</div></div>
+      <div class="nav-steps"><button class="btn ghost" data-r="0">Oublié</button><button class="btn ghost" data-r="1">Difficile</button><button class="btn" data-r="2">Je sais</button></div>
+    </div>`);
+    rev.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", () => {
+      const r = +b.dataset.r;
+      cur.lvl = r === 0 ? 0 : r === 1 ? Math.max(0, cur.lvl - 1) : Math.min(4, cur.lvl + 1);
+      const d = new Date(); d.setDate(d.getDate() + INTERVALS[cur.lvl]); cur.next = dayKey(d);
+      save(); render();
+    }));
+    el.querySelector("#rev").append(rev);
+  } else {
+    el.querySelector("#rev").append(h(`<div class="card small">${memo.length ? "Toutes les révisions du jour sont faites. Revenez demain." : "Ajoutez ci-dessous les sourates que vous connaissez par cœur : l'appli vous dira quand les réviser."}</div>`));
+  }
+  const ml = el.querySelector("#ml");
+  [...memo].sort((a, b) => a.next.localeCompare(b.next)).forEach(m => {
+    const dd = daysUntil(m.next);
+    ml.append(h(`<div class="item" style="cursor:default"><span class="n">${m.n}</span><span><span class="t">${name(m.n)}</span><span class="s">Niveau ${m.lvl + 1} sur 5</span></span><span class="small ${dd > 0 ? "muted" : ""}" style="${dd > 0 ? "" : "color:var(--accent);font-weight:600"}">${dd > 0 ? "dans " + dd + " j" : "aujourd'hui"}</span></div>`));
+  });
+  el.querySelectorAll("#add [data-n]").forEach(b => b.addEventListener("click", () => {
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    memo.push({ n: +b.dataset.n, lvl: 0, next: dayKey(d) }); save(); render();
+  }));
+}};
+
+setTab("home");
+const splash = document.getElementById("splash");
+const hideSplash = () => { splash.classList.add("out"); setTimeout(() => splash.remove(), 600); };
+splash.addEventListener("click", hideSplash);
+setTimeout(hideSplash, 1600);
+// Au lancement de l'appli : envoie les réglages au téléphone puis rafraîchit la position.
+if (IS_APP) { syncNative(); locate(); }
+</script>
+
+</body>
+</html>

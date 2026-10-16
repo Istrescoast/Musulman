@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Nejma</string>
+    <string name="widget_name">Prochaine prière</string>
+    <string name="widget_description">Prochaine prière et date hégirienne</string>
+</resources>
