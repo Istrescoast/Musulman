@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.NejmaJunior" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/junior_green</item>
+        <item name="android:statusBarColor">@color/junior_green</item>
+        <item name="android:navigationBarColor">@color/junior_green</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

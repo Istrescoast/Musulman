@@ -9,6 +9,7 @@ et un widget pour l'écran d'accueil.
 
 Chaque envoi sur `main` compile l'APK et le publie dans les [Releases](../../releases/latest) :
 ouvrez la dernière release depuis le téléphone et touchez `Nejma.apk`.
+La version enfants s'installe de la même façon avec `Nejma-Junior.apk`.
 
 ## Organisation
 
@@ -18,6 +19,16 @@ ouvrez la dernière release depuis le téléphone et touchez `Nejma.apk`.
 - `app/src/main/java/fr/nejma` : la partie Android (affichage de l'interface, alarmes de prière,
   notifications, widget). Le calcul des horaires (`PrayerTimes.kt`) reprend celui de l'interface :
   méthode UOIF, Fajr et Isha à 12°.
+
+## Nejma Junior
+
+L'appli enfants (histoires des 25 prophètes, quiz, piliers, ablutions et prière, arabe pour débutants)
+est un second module, `junior/` (identifiant `fr.nejma.junior`), installable à côté de Nejma.
+
+- `web-junior/app.html` : l'interface, la même page que la maquette Junior (images intégrées).
+  `tools/assemble.sh` la place dans `junior/src/main/assets/www`.
+- La lecture à voix haute passe par la synthèse vocale du téléphone (`window.AndroidTTS`) ;
+  le bouton retour du téléphone remonte d'un écran via `window.appBack()`.
 
 ## Sources
 
