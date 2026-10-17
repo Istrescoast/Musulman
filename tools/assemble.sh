@@ -11,5 +11,6 @@ mkdir -p "$out"
   cat web/app.html
   printf '\n</body>\n</html>\n'
 } > "$out/index.html"
-cp web/logo.png "$out/logo.png"
+cp web/logo.png web/prophetes.json "$out/"
+rm -rf "$out/quran" && cp -r web/quran "$out/quran"
 echo "Interface assemblée dans $out"

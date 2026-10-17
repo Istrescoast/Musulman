@@ -18,3 +18,10 @@ ouvrez la dernière release depuis le téléphone et touchez `Nejma.apk`.
 - `app/src/main/java/fr/nejma` : la partie Android (affichage de l'interface, alarmes de prière,
   notifications, widget). Le calcul des horaires (`PrayerTimes.kt`) reprend celui de l'interface :
   méthode UOIF, Fajr et Isha à 12°.
+
+## Sources
+
+- Texte arabe (uthmani), traduction française de Muhammad Hamidullah et translittération :
+  Tanzil et QuranEnc, via le paquet [quran-json](https://www.npmjs.com/package/quran-json) (CC BY 4.0).
+  Une sourate par fichier dans `web/quran/`.
+- Récits des prophètes : `web/prophetes.json`, rédigés d'après le Coran.

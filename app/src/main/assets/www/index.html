@@ -272,67 +272,29 @@ const PRAYERS = [
   { k: "isha", fr: "Isha", ar: "العشاء" }
 ];
 
-const SURAHS = [
-  { n: 1, fr: "Al-Fatiha", sub: "L'Ouverture · 7 versets", ar: "الفاتحة", v: [
-    ["بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "Bismi llâhi r-rahmâni r-rahîm", "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux."],
-    ["الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "Al-hamdu li-llâhi rabbi l-'âlamîn", "Louange à Allah, Seigneur de l'univers."],
-    ["الرَّحْمَٰنِ الرَّحِيمِ", "Ar-rahmâni r-rahîm", "Le Tout Miséricordieux, le Très Miséricordieux,"],
-    ["مَالِكِ يَوْمِ الدِّينِ", "Mâliki yawmi d-dîn", "Maître du Jour de la rétribution."],
-    ["إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", "Iyyâka na'budu wa iyyâka nasta'în", "C'est Toi seul que nous adorons, et c'est Toi seul dont nous implorons le secours."],
-    ["اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", "Ihdinâ s-sirâta l-mustaqîm", "Guide-nous dans le droit chemin,"],
-    ["صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", "Sirâta lladhîna an'amta 'alayhim, ghayri l-maghdûbi 'alayhim wa la d-dâllîn", "le chemin de ceux que Tu as comblés de faveurs, non pas de ceux qui ont encouru Ta colère, ni des égarés."]
-  ]},
-  { n: 103, fr: "Al-'Asr", sub: "Le Temps · 3 versets", ar: "العصر", v: [
-    ["وَالْعَصْرِ", "Wal-'asr", "Par le Temps !"],
-    ["إِنَّ الْإِنسَانَ لَفِي خُسْرٍ", "Inna l-insâna lafî khusr", "L'homme est certes en perdition,"],
-    ["إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ", "Illa lladhîna âmanû wa 'amilû s-sâlihâti wa tawâsaw bil-haqqi wa tawâsaw bis-sabr", "sauf ceux qui croient et accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement l'endurance."]
-  ]},
-  { n: 106, fr: "Quraysh", sub: "Les Quraysh · 4 versets", ar: "قريش", v: [
-    ["لِإِيلَافِ قُرَيْشٍ", "Li-îlâfi Quraysh", "À cause du pacte des Quraysh,"],
-    ["إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ", "Îlâfihim rihlata sh-shitâ'i wa s-sayf", "de leur pacte concernant les voyages d'hiver et d'été."],
-    ["فَلْيَعْبُدُوا رَبَّ هَٰذَا الْبَيْتِ", "Falya'budû rabba hâdha l-bayt", "Qu'ils adorent donc le Seigneur de cette Maison,"],
-    ["الَّذِي أَطْعَمَهُم مِّن جُوعٍ وَآمَنَهُم مِّنْ خَوْفٍ", "Alladhî at'amahum min jû'in wa âmanahum min khawf", "qui les a nourris contre la faim et rassurés de la crainte."]
-  ]},
-  { n: 108, fr: "Al-Kawthar", sub: "L'Abondance · 3 versets", ar: "الكوثر", v: [
-    ["إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ", "Innâ a'taynâka l-kawthar", "Nous t'avons certes accordé l'Abondance."],
-    ["فَصَلِّ لِرَبِّكَ وَانْحَرْ", "Fasalli li-rabbika wanhar", "Accomplis la prière pour ton Seigneur et sacrifie."],
-    ["إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ", "Inna shâni'aka huwa l-abtar", "Celui qui te hait sera certes sans postérité."]
-  ]},
-  { n: 109, fr: "Al-Kafirun", sub: "Les Infidèles · 6 versets", ar: "الكافرون", v: [
-    ["قُلْ يَا أَيُّهَا الْكَافِرُونَ", "Qul yâ ayyuha l-kâfirûn", "Dis : « Ô vous les infidèles !"],
-    ["لَا أَعْبُدُ مَا تَعْبُدُونَ", "Lâ a'budu mâ ta'budûn", "Je n'adore pas ce que vous adorez."],
-    ["وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ", "Wa lâ antum 'âbidûna mâ a'bud", "Et vous n'êtes pas adorateurs de ce que j'adore."],
-    ["وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ", "Wa lâ ana 'âbidun mâ 'abadtum", "Je ne suis pas adorateur de ce que vous adorez."],
-    ["وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ", "Wa lâ antum 'âbidûna mâ a'bud", "Et vous n'êtes pas adorateurs de ce que j'adore."],
-    ["لَكُمْ دِينُكُمْ وَلِيَ دِينِ", "Lakum dînukum wa liya dîn", "À vous votre religion, et à moi ma religion. »"]
-  ]},
-  { n: 110, fr: "An-Nasr", sub: "Le Secours · 3 versets", ar: "النصر", v: [
-    ["إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ", "Idhâ jâ'a nasru llâhi wal-fath", "Lorsque vient le secours d'Allah ainsi que la victoire,"],
-    ["وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا", "Wa ra'ayta n-nâsa yadkhulûna fî dîni llâhi afwâjâ", "et que tu vois les gens entrer en foule dans la religion d'Allah,"],
-    ["فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا", "Fasabbih bi-hamdi rabbika wastaghfirh, innahû kâna tawwâbâ", "alors célèbre la gloire de ton Seigneur par la louange et implore Son pardon. Car c'est Lui le grand Accueillant au repentir."]
-  ]},
-  { n: 112, fr: "Al-Ikhlas", sub: "Le Monothéisme pur · 4 versets", ar: "الإخلاص", v: [
-    ["قُلْ هُوَ اللَّهُ أَحَدٌ", "Qul huwa llâhu ahad", "Dis : « Il est Allah, Unique."],
-    ["اللَّهُ الصَّمَدُ", "Allâhu s-samad", "Allah, Le Seul à être imploré pour ce que nous désirons."],
-    ["لَمْ يَلِدْ وَلَمْ يُولَدْ", "Lam yalid wa lam yûlad", "Il n'a jamais engendré, n'a pas été engendré non plus."],
-    ["وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ", "Wa lam yakun lahû kufuwan ahad", "Et nul n'est égal à Lui. »"]
-  ]},
-  { n: 113, fr: "Al-Falaq", sub: "L'Aube naissante · 5 versets", ar: "الفلق", v: [
-    ["قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ", "Qul a'ûdhu bi-rabbi l-falaq", "Dis : « Je cherche protection auprès du Seigneur de l'aube naissante,"],
-    ["مِن شَرِّ مَا خَلَقَ", "Min sharri mâ khalaq", "contre le mal des êtres qu'Il a créés,"],
-    ["وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ", "Wa min sharri ghâsiqin idhâ waqab", "contre le mal de l'obscurité quand elle s'approfondit,"],
-    ["وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ", "Wa min sharri n-naffâthâti fi l-'uqad", "contre le mal de celles qui soufflent sur les nœuds,"],
-    ["وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ", "Wa min sharri hâsidin idhâ hasad", "et contre le mal de l'envieux quand il envie. »"]
-  ]},
-  { n: 114, fr: "An-Nas", sub: "Les Hommes · 6 versets", ar: "الناس", v: [
-    ["قُلْ أَعُوذُ بِرَبِّ النَّاسِ", "Qul a'ûdhu bi-rabbi n-nâs", "Dis : « Je cherche protection auprès du Seigneur des hommes,"],
-    ["مَلِكِ النَّاسِ", "Maliki n-nâs", "le Souverain des hommes,"],
-    ["إِلَٰهِ النَّاسِ", "Ilâhi n-nâs", "Dieu des hommes,"],
-    ["مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ", "Min sharri l-waswâsi l-khannâs", "contre le mal du mauvais conseiller, furtif,"],
-    ["الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ", "Alladhî yuwaswisu fî sudûri n-nâs", "qui souffle le mal dans les poitrines des hommes,"],
-    ["مِنَ الْجِنَّةِ وَالنَّاسِ", "Mina l-jinnati wa n-nâs", "qu'il (le conseiller) soit un djinn ou un être humain. »"]
-  ]}
-];
+// Texte du Coran (arabe uthmani, traduction de Muhammad Hamidullah, translittération Tanzil),
+// une sourate par fichier dans quran/. Pour les sourates les plus récitées, la translittération
+// est rédigée à la française.
+const TRANSLIT = {"1":["Bismi llâhi r-rahmâni r-rahîm","Al-hamdu li-llâhi rabbi l-'âlamîn","Ar-rahmâni r-rahîm","Mâliki yawmi d-dîn","Iyyâka na'budu wa iyyâka nasta'în","Ihdinâ s-sirâta l-mustaqîm","Sirâta lladhîna an'amta 'alayhim, ghayri l-maghdûbi 'alayhim wa la d-dâllîn"],"103":["Wal-'asr","Inna l-insâna lafî khusr","Illa lladhîna âmanû wa 'amilû s-sâlihâti wa tawâsaw bil-haqqi wa tawâsaw bis-sabr"],"106":["Li-îlâfi Quraysh","Îlâfihim rihlata sh-shitâ'i wa s-sayf","Falya'budû rabba hâdha l-bayt","Alladhî at'amahum min jû'in wa âmanahum min khawf"],"108":["Innâ a'taynâka l-kawthar","Fasalli li-rabbika wanhar","Inna shâni'aka huwa l-abtar"],"109":["Qul yâ ayyuha l-kâfirûn","Lâ a'budu mâ ta'budûn","Wa lâ antum 'âbidûna mâ a'bud","Wa lâ ana 'âbidun mâ 'abadtum","Wa lâ antum 'âbidûna mâ a'bud","Lakum dînukum wa liya dîn"],"110":["Idhâ jâ'a nasru llâhi wal-fath","Wa ra'ayta n-nâsa yadkhulûna fî dîni llâhi afwâjâ","Fasabbih bi-hamdi rabbika wastaghfirh, innahû kâna tawwâbâ"],"112":["Qul huwa llâhu ahad","Allâhu s-samad","Lam yalid wa lam yûlad","Wa lam yakun lahû kufuwan ahad"],"113":["Qul a'ûdhu bi-rabbi l-falaq","Min sharri mâ khalaq","Wa min sharri ghâsiqin idhâ waqab","Wa min sharri n-naffâthâti fi l-'uqad","Wa min sharri hâsidin idhâ hasad"],"114":["Qul a'ûdhu bi-rabbi n-nâs","Maliki n-nâs","Ilâhi n-nâs","Min sharri l-waswâsi l-khannâs","Alladhî yuwaswisu fî sudûri n-nâs","Mina l-jinnati wa n-nâs"]};
+const JUZ_AMMA = [1, ...Array.from({ length: 37 }, (_, i) => 78 + i)];
+const quranCache = {};
+let QIDX = null;
+const loadIndex = () => QIDX ? Promise.resolve(QIDX) : fetch("quran/index.json").then(r => r.json()).then(d => (QIDX = d));
+const loadSurah = n => quranCache[n] ? Promise.resolve(quranCache[n]) : fetch(`quran/${n}.json`).then(r => r.json()).then(d => (quranCache[n] = d));
+const surahName = n => QURAN[n - 1].fr;
+function surahList(el, nums) {
+  const draw = idx => {
+    el.innerHTML = "";
+    nums.forEach(n => {
+      const meta = idx && idx[n - 1];
+      const b = h(`<button class="item"><span class="n">${n}</span><span><span class="t">${surahName(n)}</span><span class="s">${meta ? meta[2] + " · " : ""}${QURAN[n - 1].v} versets</span></span><span class="ar">${meta ? meta[1] : ""}</span></button>`);
+      b.firstElementChild.addEventListener("click", () => { state.surah = n; go("surah"); });
+      el.append(b);
+    });
+  };
+  draw(QIDX);
+  if (!QIDX) loadIndex().then(d => { if (el.isConnected) draw(d); }).catch(() => {});
+}
 
 const WUDU = [
   ["Intention et Bismillah", "Formuler dans son cœur l'intention de faire les ablutions, puis dire « Bismillah ».", "بسم الله"],
@@ -381,7 +343,6 @@ const MORE = [
   { id: "widget", fr: "Widgets", s: "Prochaine prière sur l'écran d'accueil", ar: "□", v: "V2" },
   { id: "prophetes", fr: "Histoire des prophètes", s: "D'Adam à Muhammad ﷺ", ar: "ن", v: "V2" },
   { id: "funeraire", fr: "Guide funéraire", s: "Que faire au décès d'un proche", ar: "ج", v: "V3" },
-  { id: "memo", fr: "Mémorisation du Coran", s: "Répétition espacée", ar: "ح", v: "V3" },
 ];
 
 // ---------- Calculs ----------
@@ -558,19 +519,14 @@ screens.home = { title: "Assalamu alaykum", draw(el) {
 }};
 
 screens.surahs = { title: "Sourates pour prier", draw(el) {
-  el.append(h(`<p class="muted small">Les courtes sourates pour la prière, avec texte arabe, translittération, traduction et audio.</p><div class="list" id="l"></div>
-    <p class="note">9 sourates disponibles pour l'instant. Le Juz 'Amma complet (sourates 78 à 114) arrivera dans une prochaine version.</p>`));
-  const l = el.querySelector("#l");
-  SURAHS.forEach((s, i) => {
-    const b = h(`<button class="item"><span class="n">${s.n}</span><span><span class="t">${s.fr}</span><span class="s">${s.sub}</span></span><span class="ar">${s.ar}</span></button>`);
-    b.firstElementChild.addEventListener("click", () => { state.surah = i; go("surah"); });
-    l.append(b);
-  });
+  el.append(h(`<p class="muted small" style="margin:0">Al-Fatiha et le Juz 'Amma complet (sourates 78 à 114), avec texte arabe, translittération et traduction.</p><div class="list" id="l"></div>`));
+  surahList(el.querySelector("#l"), JUZ_AMMA);
 }};
 
-screens.surah = { get title() { return SURAHS[state.surah].fr; }, draw(el) {
-  const s = SURAHS[state.surah];
+screens.surah = { get title() { return surahName(state.surah); }, draw(el) {
+  const n = state.surah;
   const mode = state.mode || "all";
+  store.set("lastSurah", n);
   el.append(h(`
     <div class="player"><button class="play" aria-label="Lire l'audio" disabled style="opacity:.5">▶</button>
       <div><strong>Récitation</strong><div class="small muted">Audio bientôt disponible</div></div></div>
@@ -579,11 +535,20 @@ screens.surah = { get title() { return SURAHS[state.surah].fr; }, draw(el) {
       <button data-m="ar" aria-pressed="${mode === "ar"}">Arabe seul</button>
       <button data-m="learn" aria-pressed="${mode === "learn"}">Mode apprentissage</button>
     </div>
-    <div class="card" id="vv"></div>`));
-  const vv = el.querySelector("#vv");
-  s.v.forEach((v, i) => vv.append(h(`<div class="verse"><div class="a">${v[0]} ﴿${(i + 1).toLocaleString("ar-EG")}﴾</div>
-    ${mode !== "ar" ? `<div class="tr">${v[1]}</div><div class="fr">${mode === "learn" ? "<span class='muted small'>Répéter ce verset 3 fois avant de passer au suivant</span>" : v[2]}</div>` : ""}</div>`)));
+    <div class="card" id="vv"><span class="muted small">Chargement…</span></div>`));
   el.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { state.mode = b.dataset.m; render(); }));
+  const vv = el.querySelector("#vv");
+  loadSurah(n).then(s => {
+    if (!vv.isConnected || state.surah !== n) return;
+    const tl = TRANSLIT[n];
+    vv.innerHTML = "";
+    vv.append(h(`<div class="small muted" style="text-align:center">${s.fr} · ${s.type === "medinan" ? "médinoise" : "mecquoise"} · ${s.v.length} versets</div>`));
+    if (n !== 1 && n !== 9) vv.append(h(`<div class="verse" style="text-align:center"><div class="a" style="text-align:center">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</div></div>`));
+    s.v.forEach((v, i) => vv.append(h(`<div class="verse" id="v${i + 1}"><div class="a">${v[0]} ﴿${(i + 1).toLocaleString("ar-EG")}﴾</div>
+      ${mode !== "ar" ? `<div class="tr">${tl ? tl[i] : v[1]}</div><div class="fr">${mode === "learn" ? "<span class='muted small'>Répéter ce verset 3 fois avant de passer au suivant</span>" : `<span class="muted small">${i + 1}.</span> ${v[2]}`}</div>` : ""}</div>`)));
+    vv.append(h(`<p class="note" style="margin-top:12px">Traduction de Muhammad Hamidullah, texte arabe et translittération d'après Tanzil.</p>`));
+    if (state.verse) { const t = vv.querySelector("#v" + state.verse); state.verse = null; if (t) { t.style.background = "var(--accent-soft)"; t.scrollIntoView({ block: "start" }); } }
+  }).catch(() => { vv.innerHTML = `<span class="small">Impossible de charger cette sourate.</span>`; });
 }};
 
 screens.qibla = { title: "Direction de la qibla", draw(el) {
@@ -758,25 +723,21 @@ const QURAN = "Al-Fatiha 7|Al-Baqara 286|Al-Imran 200|An-Nisa 176|Al-Ma'ida 120|
   .split("|").map((x, i) => { const k = x.lastIndexOf(" "); return { n: i + 1, fr: x.slice(0, k), v: +x.slice(k + 1) }; });
 
 screens.quran = { title: "Coran", draw(el) {
+  const last = store.get("lastSurah", null);
   el.append(h(`
-    <button class="hero" id="resume" style="border:0;text-align:left;cursor:pointer">
-      <span class="label">Reprendre la lecture</span><span class="big" style="font-size:1.6rem">Al-Kahf · verset 46</span>
-      <span class="sub">Objectif Ramadan : 12 juz sur 30 lus</span>
-    </button>
+    ${last ? `<button class="hero" id="resume" style="border:0;text-align:left;cursor:pointer;font:inherit">
+      <span class="label">Reprendre la lecture</span><span class="big" style="font-size:1.6rem">${surahName(last)}</span>
+      <span class="sub">Sourate ${last} · ${QURAN[last - 1].v} versets</span>
+    </button>` : ""}
     <div class="field"><label for="q-search">Rechercher une sourate</label><input id="q-search" type="search" placeholder="Nom ou numéro"></div>
-    <div class="seg" role="group" aria-label="Récitateur"><button aria-pressed="true">Mishary Alafasy</button><button aria-pressed="false">Abdul Basit</button><button aria-pressed="false">Al-Husary</button></div>
-    <div class="list" id="ql"></div>
-    <p class="note">Ouvrir une sourate déjà présente dans l'onglet Sourates affiche son texte. Les autres textes seront ajoutés depuis une source sous licence libre (Tanzil).</p>`));
+    <div class="list" id="ql"></div>`));
+  el.querySelector("#resume")?.addEventListener("click", () => { state.surah = last; go("surah"); });
   const ql = el.querySelector("#ql"), q = el.querySelector("#q-search");
+  const norm = t => t.normalize("NFD").replace(/[\u0300-\u036f'\-\s]/g, "").toLowerCase();
   const draw = () => {
-    const f = q.value.trim().toLowerCase();
-    ql.innerHTML = "";
-    QURAN.filter(s => !f || s.fr.toLowerCase().includes(f) || String(s.n) === f).forEach(s => {
-      const ok = SURAHS.findIndex(x => x.n === s.n);
-      const b = h(`<button class="item"><span class="n">${s.n}</span><span><span class="t">${s.fr}</span><span class="s">${s.v} versets${ok < 0 ? " · texte à ajouter" : ""}</span></span><span class="muted small">⬇︎</span></button>`);
-      b.firstElementChild.addEventListener("click", () => { if (ok >= 0) { state.surah = ok; go("surah"); } });
-      ql.append(b);
-    });
+    const f = norm(q.value.trim());
+    const nums = QURAN.filter(s => !f || norm(s.fr).includes(f) || String(s.n) === f || (QIDX && norm(QIDX[s.n - 1][2]).includes(f))).map(s => s.n);
+    surahList(ql, nums);
   };
   q.addEventListener("input", draw); draw();
 }};
@@ -949,21 +910,42 @@ const PROPHETS = [
 screens.prophetes = { title: "Les prophètes", draw(el) {
   el.append(h(`<p class="muted small" style="margin:0">Les 25 prophètes cités dans le Coran, dans l'ordre chronologique.</p><div class="list" id="pl"></div>`));
   const pl = el.querySelector("#pl");
+  loadStories().catch(() => {});
   PROPHETS.forEach((p, i) => {
     const b = h(`<button class="item"><span class="n">${i + 1}</span><span><span class="t">${p[0]}</span><span class="s">${p[2]}</span></span><span class="ar">${p[1]}</span></button>`);
     b.firstElementChild.addEventListener("click", () => { state.prophet = i; go("prophete"); });
     pl.append(b);
   });
 }};
+let STORIES = null;
+const loadStories = () => STORIES ? Promise.resolve(STORIES) : fetch("prophetes.json").then(r => r.json()).then(d => (STORIES = d));
 screens.prophete = { get title() { return PROPHETS[state.prophet][0]; }, draw(el) {
-  const p = PROPHETS[state.prophet];
+  const i = state.prophet, p = PROPHETS[i];
   el.append(h(`
-    <div class="hero"><span class="label">Prophète n° ${state.prophet + 1}</span><span class="big" style="font-family:var(--font-ar)">${p[1]}</span><span class="sub">${p[2]}</span></div>
-    <div class="list">
-      ${["Sa vie", "Son message et son peuple", "Ce que le Coran en dit", "Les leçons à retenir"].map((c, i) => `<div class="item" style="cursor:default"><span class="n">${i + 1}</span><span><span class="t">${c}</span><span class="s">Récit à rédiger · lecture 3 min · audio</span></span><span class="muted">›</span></div>`).join("")}
-    </div>
-    <div class="card small">Cité notamment dans la sourate <strong>${p[3]}</strong>.</div>
-    <p class="note">Les récits seront rédigés à partir du Coran et de sources reconnues, puis relus avant publication.</p>`));
+    <div class="hero"><span class="label">Prophète n° ${i + 1}</span><span class="big" style="font-family:var(--font-ar)">${p[1]}</span><span class="sub">${p[2]}</span></div>
+    <div id="story" style="display:grid;gap:12px"><span class="muted small">Chargement…</span></div>
+    <div class="nav-steps">
+      <button class="btn ghost" id="pp" ${i === 0 ? "disabled" : ""}>Précédent</button>
+      <button class="btn ghost" id="pn" ${i === PROPHETS.length - 1 ? "disabled" : ""}>Suivant</button>
+    </div>`));
+  el.querySelector("#pp").addEventListener("click", () => { state.prophet--; render(); });
+  el.querySelector("#pn").addEventListener("click", () => { state.prophet++; render(); });
+  const box = el.querySelector("#story");
+  loadStories().then(all => {
+    if (!box.isConnected || state.prophet !== i) return;
+    const st = all[i];
+    box.innerHTML = "";
+    [["Sa vie", st.vie], ["Son message et son peuple", st.message], ["Ce que le Coran en dit", st.coran], ["Les leçons à retenir", st.lecons]].forEach(([t, txt]) =>
+      box.append(h(`<div class="card" style="display:grid;gap:6px"><h2>${t}</h2><p style="margin:0">${txt}</p></div>`)));
+    const refs = h(`<div class="card" style="display:grid;gap:8px"><h2>À lire dans le Coran</h2><div class="seg"></div></div>`);
+    st.refs.forEach(([n, v]) => {
+      const b = h(`<button>${surahName(n)} ${n}:${v}</button>`).firstElementChild;
+      b.addEventListener("click", () => { state.surah = n; state.verse = parseInt(v, 10); go("surah"); });
+      refs.querySelector(".seg").append(b);
+    });
+    box.append(refs);
+    box.append(h(`<p class="note">Récits rédigés d'après le Coran ; les détails venant de la tradition sont signalés. À faire relire par une personne de confiance.</p>`));
+  }).catch(() => { box.innerHTML = `<span class="small">Impossible de charger ce récit.</span>`; });
 }};
 
 // ---------- V3 : Guide funéraire ----------
@@ -1013,56 +995,6 @@ screens.funeraire = { title: "Guide funéraire", draw(el) {
     });
     fl.append(c);
   });
-}};
-
-// ---------- V3 : Mémorisation par répétition espacée ----------
-const INTERVALS = [1, 3, 7, 14, 30];
-// Programme : [{ n, lvl, next: "AAAA-MM-JJ" }] ; une sourate est à réviser quand sa date est passée.
-const memo = store.get("memo", IS_APP ? [] : [
-  { n: 1, lvl: 3, off: 0 }, { n: 112, lvl: 4, off: 0 }, { n: 113, lvl: 2, off: 0 },
-  { n: 114, lvl: 2, off: 2 }, { n: 108, lvl: 1, off: 5 }, { n: 103, lvl: 4, off: 12 }
-].map(m => { const d = new Date(); d.setDate(d.getDate() + m.off); return { n: m.n, lvl: m.lvl, next: dayKey(d) }; }));
-const daysUntil = k => { const [y, m, d] = k.split("-").map(Number); return Math.round((new Date(y, m - 1, d) - new Date(new Date().toDateString())) / 86400000); };
-screens.memo = { title: "Mémorisation", draw(el) {
-  const due = memo.filter(m => daysUntil(m.next) <= 0);
-  const cur = due[0];
-  const name = n => QURAN[n - 1].fr;
-  const free = SURAHS.filter(s => !memo.some(m => m.n === s.n));
-  el.append(h(`
-    <div class="hero"><span class="label">Révisions du jour</span><span class="big">${due.length} sourate${due.length > 1 ? "s" : ""}</span><span class="sub">${memo.length} sourate${memo.length > 1 ? "s" : ""} dans mon programme</span></div>
-    <div id="rev"></div>
-    <h2>Mon programme</h2>
-    <div class="list" id="ml"></div>
-    ${free.length ? `<div class="card" style="display:grid;gap:8px"><h2>Ajouter une sourate apprise</h2><div class="seg" id="add">${free.map(s => `<button data-n="${s.n}">${s.fr}</button>`).join("")}</div></div>` : ""}
-    <p class="note">Plus une sourate est bien retenue, plus la prochaine révision est espacée (1, 3, 7, 14 puis 30 jours).</p>`));
-  const save = () => store.set("memo", memo);
-  if (cur) {
-    const s = SURAHS.find(x => x.n === cur.n);
-    const rev = h(`<div class="card" style="display:grid;gap:10px">
-      <span class="small muted">Récitez la suite de mémoire, puis vérifiez</span>
-      <h2>${name(cur.n)}</h2>
-      <div class="verse" style="border:0;padding:0"><div class="a">${s ? s.v[0][0] : ""} …</div></div>
-      <div class="nav-steps"><button class="btn ghost" data-r="0">Oublié</button><button class="btn ghost" data-r="1">Difficile</button><button class="btn" data-r="2">Je sais</button></div>
-    </div>`);
-    rev.querySelectorAll("[data-r]").forEach(b => b.addEventListener("click", () => {
-      const r = +b.dataset.r;
-      cur.lvl = r === 0 ? 0 : r === 1 ? Math.max(0, cur.lvl - 1) : Math.min(4, cur.lvl + 1);
-      const d = new Date(); d.setDate(d.getDate() + INTERVALS[cur.lvl]); cur.next = dayKey(d);
-      save(); render();
-    }));
-    el.querySelector("#rev").append(rev);
-  } else {
-    el.querySelector("#rev").append(h(`<div class="card small">${memo.length ? "Toutes les révisions du jour sont faites. Revenez demain." : "Ajoutez ci-dessous les sourates que vous connaissez par cœur : l'appli vous dira quand les réviser."}</div>`));
-  }
-  const ml = el.querySelector("#ml");
-  [...memo].sort((a, b) => a.next.localeCompare(b.next)).forEach(m => {
-    const dd = daysUntil(m.next);
-    ml.append(h(`<div class="item" style="cursor:default"><span class="n">${m.n}</span><span><span class="t">${name(m.n)}</span><span class="s">Niveau ${m.lvl + 1} sur 5</span></span><span class="small ${dd > 0 ? "muted" : ""}" style="${dd > 0 ? "" : "color:var(--accent);font-weight:600"}">${dd > 0 ? "dans " + dd + " j" : "aujourd'hui"}</span></div>`));
-  });
-  el.querySelectorAll("#add [data-n]").forEach(b => b.addEventListener("click", () => {
-    const d = new Date(); d.setDate(d.getDate() + 1);
-    memo.push({ n: +b.dataset.n, lvl: 0, next: dayKey(d) }); save(); render();
-  }));
 }};
 
 setTab("home");
