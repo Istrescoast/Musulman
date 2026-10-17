@@ -14,3 +14,15 @@ mkdir -p "$out"
 cp web/logo.png web/prophetes.json "$out/"
 rm -rf "$out/quran" && cp -r web/quran "$out/quran"
 echo "Interface assemblée dans $out"
+
+# Nejma Junior : la maquette enfants est déjà une page complète (images intégrées).
+jout=junior/src/main/assets/www
+mkdir -p "$jout"
+{
+  printf '<!doctype html>\n<html lang="fr">\n<head>\n<meta charset="utf-8">\n'
+  printf '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+  printf '<style>body{margin:0}</style>\n</head>\n<body>\n'
+  cat web-junior/app.html
+  printf '\n</body>\n</html>\n'
+} > "$jout/index.html"
+echo "Interface Junior assemblée dans $jout"

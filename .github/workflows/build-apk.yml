@@ -22,16 +22,22 @@ jobs:
       - name: Assembler l'interface
         run: sh tools/assemble.sh
       - run: chmod +x gradlew && ./gradlew assembleRelease
-      - run: cp app/build/outputs/apk/release/app-release.apk Nejma.apk
+      - run: |
+          cp app/build/outputs/apk/release/app-release.apk Nejma.apk
+          cp junior/build/outputs/apk/release/junior-release.apk Nejma-Junior.apk
       - uses: actions/upload-artifact@v4
         with:
           name: nejma
-          path: Nejma.apk
+          path: |
+            Nejma.apk
+            Nejma-Junior.apk
       # Publie l'APK dans une release : téléchargeable directement depuis le téléphone.
       - if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
           name: Nejma ${{ github.run_number }}
-          files: Nejma.apk
+          files: |
+            Nejma.apk
+            Nejma-Junior.apk
           make_latest: true

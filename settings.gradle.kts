@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Nejma"
 include(":app")
+include(":junior")
