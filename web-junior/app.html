@@ -1129,44 +1129,11 @@ const HOME_TILES = [
   ["me", "t-recomp", "Mes récompenses", "#ee9119"], ["games", "t-jeux", "Mini-jeux", "#1eb0d3"]
 ];
 screens.home = { title: () => `Salam ${S.name} !`, draw(el) {
-  const done = S.mission.filter(Boolean).length;
-  const next = Object.keys(STORIES).find(p => !S.read.includes(p)) || "Muhammad ﷺ";
   const smallStar = starSVG(false);
   el.innerHTML = `
-    <div class="hero2">
-      <img src="${IMG['img/hero.png']}" alt="Aliyah, son ami et l’étoile Nejma qui se réjouissent">
-      <div class="txt">
-        <h2>Bravo,<em>${S.streak} jours</em>de suite !</h2>
-        <p>Continue comme ça, petite étoile !</p>
-        <button class="cta" id="cta" aria-label="Continuer avec l’histoire de ${esc(next)}">▶ Continuer</button>
-      </div>
-    </div>
-    <div class="missions">
-      <div class="head"><span style="font-size:1.4rem" aria-hidden="true">📋</span><h3>Mes missions du jour</h3><span class="count">${done}/3</span></div>
-      <div class="body">
-        <div class="mlist">${MISSIONS.map(([m, ic], i) => `<button class="mchip ${S.mission[i] ? "done" : ""}" data-m="${i}">
-          <span class="ck">${S.mission[i] ? "✓" : ""}</span><span>${m}</span><span class="mi" aria-hidden="true">${ic}</span></button>`).join("")}</div>
-        <div class="chest ${done === 3 ? "open" : ""}">
-          <img src="${IMG['img/chest.png']}" alt="Coffre au trésor">
-          <span>${done === 3 ? "Coffre ouvert : +5 étoiles !" : `Encore ${3 - done} mission${3 - done > 1 ? "s" : ""} pour ouvrir ton coffre !`}</span>
-          <div class="progress" aria-hidden="true"><i style="width:${done / 3 * 100}%"></i></div>
-        </div>
-      </div>
-    </div>
     <h3 class="st">${smallStar} Qu’est-ce qu’on fait aujourd’hui ?</h3>
     <div class="itiles">${HOME_TILES.map(([to, img, label, c]) => `<button class="itile" style="--c:${c}" data-go="${to}">
       <img src="${IMG[`img/${img}.png`]}" alt=""><span class="lb"><span>${label}</span><span class="chev" aria-hidden="true">❯</span></span></button>`).join("")}</div>`;
-  el.querySelector("#cta").onclick = () => go("story", next);
-  el.querySelectorAll("[data-m]").forEach(b => b.onclick = () => {
-    const i = +b.dataset.m;
-    if (i === 1 && !S.mission[1]) return go("story", "Ibrahim");
-    if (i === 2 && !S.mission[2]) return go("quiz");
-    if (!S.mission[i]) { S.mission[i] = true; addStars(1, "étoile"); }
-    save(); go("home", null, false);
-  });
-  if (done === 3 && !S.chest) {
-    S.chest = true; save(); confetti(); setTimeout(() => addStars(5, "étoiles : coffre ouvert !"), 400);
-  }
 } };
 
 screens.games = { title: "Mini-jeux", tab: "home", draw(el) {
