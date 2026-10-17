@@ -528,8 +528,6 @@ screens.surah = { get title() { return surahName(state.surah); }, draw(el) {
   const mode = state.mode || "all";
   store.set("lastSurah", n);
   el.append(h(`
-    <div class="player"><button class="play" aria-label="Lire l'audio" disabled style="opacity:.5">▶</button>
-      <div><strong>Récitation</strong><div class="small muted">Audio bientôt disponible</div></div></div>
     <div class="seg" role="group" aria-label="Affichage">
       <button data-m="all" aria-pressed="${mode === "all"}">Tout</button>
       <button data-m="ar" aria-pressed="${mode === "ar"}">Arabe seul</button>
